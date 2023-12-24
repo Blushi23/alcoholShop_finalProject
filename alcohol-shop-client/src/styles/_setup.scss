@@ -1,0 +1,40 @@
+:root {
+    --background-color: #FDFEEE;
+    /* --background-image: url(/public/images/lightBg.jpg); */
+    --text: #020202;
+    --link-hover: #626262;
+    --error-message-background: #ffffff96;
+    --orange: #ff8d06;
+    --yellow: #f8aa1d;
+    --blue: #000072;
+    --light-purple: #b199c5;
+    --dark-purple: #3c0b64;
+    --pink: #ff67a0;
+    --redish: #e74a63;
+    --white: #ffffff;
+    --black: #000000;
+    --title-font: "agbalumo";
+}
+
+.dark {
+    --background-color: #18533B;
+    /* --background-image: url(/public/images/darkBg.jpg); */
+    --error-message-background: transparent;
+    --text: #f2f2f2;
+    --link-hover: #afafaf;
+    --orange: #ff8d06;
+    --yellow: #f8aa1d;
+    --blue: #000072;
+    --light-purple: #b199c5;
+    --dark-purple: #3c0b64;
+    --pink: #ff67a0;
+    --redish: #e74a63;
+    --white: #ffffff;
+    --black: #000000;
+    --title-font: "agbalumo";
+}
+
+.App {
+    background: var(--background-color);
+    /* background-image: var(--background-image); */
+}

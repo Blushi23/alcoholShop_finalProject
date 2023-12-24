@@ -1,0 +1,254 @@
+:root {
+    --background-color: #ffffff;
+    /* --background-image: url(/public/images/lightBg.jpg); */
+    --text: #020202;
+    --link-hover: #626262;
+    --error-message-background: #ffffff96;
+    --orange: #ff8d06;
+    --yellow: #f8aa1d;
+    --blue: #000072;
+    --light-purple: #b199c5;
+    --dark-purple: #3c0b64;
+    --pink: #ff67a0;
+    --redish: #e74a63;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+.dark {
+    --background-color: #000072;
+    /* --background-image: url(/public/images/darkBg.jpg); */
+    --error-message-background: transparent;
+    --text: #f2f2f2;
+    --link-hover: #afafaf;
+    --orange: #ff8d06;
+    --yellow: #f8aa1d;
+    --blue: #000072;
+    --light-purple: #b199c5;
+    --dark-purple: #3c0b64;
+    --pink: #ff67a0;
+    --redish: #e74a63;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+.App {
+    background: var(--background-color);
+    /* background-image: var(--background-image); */
+}
+
+/* navbar */
+.navbar {
+    background-color: rgba(177, 153, 197, 0.3137254902);
+    box-shadow: 5px 5px 5px #bab7ab;
+}
+
+.logo {
+    width: 60px;
+    height: 80px;
+    /* margin-bottom: 10px; */
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+}
+
+.darkModeButton {
+    cursor: pointer;
+}
+
+/* //////////////////////////////////////////////////////////////// */
+.navbar-dark .navbar-nav a.nav-link {
+    color: #ffffff;
+    font-size: 1.1em;
+}
+
+.dropdown-menu {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border: none;
+    border-radius: 0;
+    padding: 0.7em;
+}
+
+@media only screen and (min-width: 992px) {
+    .dropdown:hover .dropdown-menu {
+        display: flex;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+    }
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-menu li .dropdown-item {
+    color: var(--text);
+    font-size: 1em;
+    padding: 0.5em 1em;
+}
+
+.dropdown-menu li .dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-menu li:first-child Link {
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    color: var(--dark-purple);
+}
+
+.dropdown-menu li:first-child Link:hover {
+    background-color: #f1f1f1;
+}
+
+@media only screen and (max-width: 992px) {
+    .dropdown-menu.show {
+        flex-wrap: wrap;
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1140px) {
+    .dropdown:hover .dropdown-menu {
+        width: 40vw;
+        flex-wrap: wrap;
+    }
+}
+
+.dropdown-menu {
+    border-radius: 0;
+    border: none;
+    padding: 0.5em;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    color: gray;
+    padding: 0.5em 1em;
+}
+
+.dropdown-menu li:first-child a {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--dark-purple);
+}
+
+@media screen and (min-width: 993px) {
+    .dropdown:hover .dropdown-menu {
+        display: flex;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .dropdown-menu.show {
+        max-height: 60vh;
+        overflow-y: scroll;
+    }
+}
+
+/* register and login */
+/* footer */
+.submit-btn {
+    /* background-color: var(--redish); */
+    border-radius: 50px;
+}
+
+.submit-btn:hover {
+    background-color: var(--pink);
+}
+
+.register-link {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.register-link:hover {
+    color: var(--link-hover);
+}
+
+.error-message {
+    color: rgb(207, 22, 22);
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--error-message-background);
+    border-radius: 5px;
+}
+
+.footer-title {
+    text-transform: uppercase;
+    margin-left: 30px;
+    color: var(--text);
+}
+
+.footer-li {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.copyRights {
+    color: var(--text);
+    font-size: 11px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.reco-title {
+    margin: 20px;
+    font-family: tangerine;
+    font-size: 70px;
+}
+
+.productImg {
+    width: 150px;
+    margin-top: 20px;
+}
+
+.productInfo {
+    margin-top: 100px;
+    line-height: 4;
+}
+
+.productContent {
+    margin-top: 40px;
+    box-shadow: 5px 5px 5px 5px black;
+    border-radius: 5px;
+}
+
+.productDescription {
+    margin-top: 30px;
+    margin-left: 20px;
+    text-align: justify;
+    line-height: 2;
+}
+
+.productDescription p {
+    margin-right: 30px;
+}
+
+.productDescTitle {
+    font-weight: bold;
+}
+
+.backBtn {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+/*# sourceMappingURL=App.css.map */

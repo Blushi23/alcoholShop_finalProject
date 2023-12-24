@@ -1,0 +1,25 @@
+.submit-btn {
+    /* background-color: var(--redish); */
+    border-radius: 50px;
+}
+
+.submit-btn:hover {
+    background-color: var(--pink);
+}
+
+.register-link {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.register-link:hover {
+    color: var(--link-hover);
+}
+
+.error-message {
+    color: rgb(207, 22, 22);
+    font-weight: bold;
+    text-align: center;
+    background-color: var(--error-message-background);
+    border-radius: 5px;
+}

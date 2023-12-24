@@ -1,0 +1,30 @@
+.pageTitle {
+    font-family: var(--title-font);
+    text-align: center;
+    margin-top: 15px;
+    font-size: 3rem;
+
+}
+
+.removeBtn {
+    font-size: 0.8rem;
+    height: 20px;
+    margin-top: -5px;
+    line-height: 0.5;
+}
+
+.quantityBtn {
+    border-style: solid;
+    border-radius: 5px;
+    line-height: .3;
+    height: 30px;
+    font-size: 0.8rem;
+}
+
+.search-product-box {
+    width: 400px;
+    margin: 20px;
+    height: 38px;
+    padding: left 30px;
+    border: solid 1px skyblue;
+}
