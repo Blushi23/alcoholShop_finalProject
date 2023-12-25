@@ -26,6 +26,7 @@ import { ShoppingCartProvider } from './context/ShoppingCartContext';
 import Search from './components/Search';
 import { getProducts } from './services/productsService';
 import SearchResults from './components/SearchResults';
+import ProductsManagmentSearch from './components/ProductsManagmentSearch';
 // import DeliveryDetails from './components/DeliveryDetails';
 
 let theme = {
@@ -83,7 +84,7 @@ function App() {
         {/* <ShoppingCartProvider> */}
         <ToastContainer theme={`${darkMode ? "dark" : "light"}`} />
         <Router  >
-          <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery}/*inputSearch={inputSearch} setInputSearch={setInputSearch}*/ />
+          <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
 
           <Routes>
             <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} products={allProducts} setProducts={setAllProducts} loading={loading} setLoading={setLoading} />} />
@@ -91,7 +92,7 @@ function App() {
             <Route path='/update-account/:id' element={<UpdateAccount user={user} setUser={setUser} setUserInfo={setUserInfo} userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} />
 
             <Route path='/users-managment' element={<UsersManagment handleUpdateUser={handleUpdateUser} users={users} setUsers={setUsers} />} />
-            <Route path='/products-managment' element={<ProductsManagment products={allProducts} setProducts={setAllProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} />} />
+            <Route path='/products-managment' element={<ProductsManagment products={allProducts} setProducts={setAllProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} />
             <Route path='/new-product' element={<NewProduct />} />
             <Route path='/edit-product/:id' element={<EditProduct />} />
             <Route path='/products/:category/:subcategory/:id' element={<ProductPage products={categoryProducts} setProducts={setCategoryProducts} />} />
@@ -100,7 +101,8 @@ function App() {
             <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
             <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} />} />
             <Route path='/searching' element={<Search products={allProducts} setSearchQuery={setSearchQuery} />} />
-            <Route path='/Search' element={<SearchResults products={allProducts} />} />
+            <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
+            <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} />} />
 
 
             {/* <Route path='/delivery' element={<DeliveryDetails openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} user={user} /*setUser={setUser} setUserInfo={setUserInfo}*/ /*userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} /> */}

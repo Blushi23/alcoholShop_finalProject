@@ -154,9 +154,11 @@ router.put("/:id", auth, async (req, res) => {
 // Update user's role 
 router.patch("/:id", auth, async (req, res) => {
     try {
+
+        const { isAdmin } = req.body;
         if (req.payload.isAdmin === false) return res.status(400).send("Access denied! You cannot edit this profile.");
 
-        let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
+        let user = await User.findByIdAndUpdate({ _id: req.params.id }, { isAdmin: isAdmin }, { new: true });
         res.status(200).send(user);
 
     } catch (error) {

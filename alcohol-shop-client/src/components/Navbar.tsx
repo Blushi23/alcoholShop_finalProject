@@ -20,9 +20,10 @@ interface NavbarProps {
     // inputSearch: string;
     // setInputSearch: Function;
     setSearchQuery: Function;
+    searchQuery: any;
 }
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery }) => {
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
 
@@ -42,9 +43,26 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                 <div className="container-fluid">
                     <Link className="navbar-brand fw-bold" to="/"><img className="logo" src="/images/cocktailLogo.png" alt="logo" />Liquor Land</Link>
 
+
                     <div className="search-bar-locator">
+                        {/* {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : null}
+                        <button type="button" className="btn search-btn" onClick={() => {
+                            if (searchBarOpen && searchQuery.trim() !== "") {
+                                navigate(`/search/${searchQuery}`);
+                                setSearchBarOpen(false);
+                            } else {
+                                setSearchBarOpen(true);
+                            }
+                        }}><i className="fa-solid fa-magnifying-glass"></i></button> */}
+                        {/* </div> */}
+
                         {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
-                            <button type="button" className="btn search-btn" onClick={() => setSearchBarOpen(true)}>
+                            <button type="button" className="btn search-btn" onClick={() => {
+                                if (setSearchBarOpen && searchQuery.trim() !== "") {
+                                    navigate(`/search/${searchQuery}`);
+                                    setSearchBarOpen(false);
+                                } else { setSearchBarOpen(true); }
+                            }}>
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </button>
 
@@ -107,8 +125,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             )}
                             {userInfo.email && userInfo.isAdmin === true && (
                                 <>
-                                    <li className="nav-item"><Link to="/users-managment" className="nav-link text-center">Users Managment</Link></li>
-                                    <li className="nav-item"><Link to="/products-managment" className="nav-link text-center">Products Managment</Link></li>
+                                    <li className="nav-item"><Link to="/users-managment" className="nav-link manager-page">Users Managment</Link></li>
+                                    <li className="nav-item"><Link to="/products-managment" className="nav-link manager-page">Products Managment</Link></li>
                                 </>
                             )}
                         </ul>
@@ -141,15 +159,16 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             <label className="form-check-label  darkModeButton fs-5" htmlFor="flexSwitchCheckDefault">{darkMode ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun text-warning"></i>}</label>
                         </button>
 
-
-                        <button className="btn shopping-cart-btn" onClick={() => navigate("/cart")}>
-                            <i className="fa-solid fa-cart-shopping"></i>
-                            <div className="position-relative">
-                                <div className="items-counter rounded-circle w-100 d-flex justify-content-center align-items-center position-absolute">
-                                    30
+                        {userInfo.isAdmin === false && (
+                            <button className="btn shopping-cart-btn" onClick={() => navigate("/cart")}>
+                                <i className="fa-solid fa-cart-shopping"></i>
+                                <div className="position-relative">
+                                    <div className="items-counter rounded-circle w-100 d-flex justify-content-center align-items-center position-absolute">
+                                        30
+                                    </div>
                                 </div>
-                            </div>
-                        </button>
+                            </button>
+                        )}
                         {userInfo.email && (
                             <>
                                 <button className="btn" type="button"

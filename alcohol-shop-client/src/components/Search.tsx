@@ -2,6 +2,8 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Product from "../interfaces/Product";
 import { currencyFormat } from "../services/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
+import { addedToCartMsg, warningMsg } from "../services/feedbackService";
+import { addToCart } from "../services/cartService";
 
 interface SearchProps {
     products: Product[];
@@ -13,7 +15,6 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
     let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
 
-
     useEffect(() => {
         let search = async () => {
             try {
@@ -23,6 +24,9 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
                 }
                 let searchProducts = products.filter((product: Product) => product.name.toLowerCase().includes(key.toLowerCase()))
                 setSearchRes(searchProducts.slice(0, 6));
+
+                if (searchProducts.length === 0) warningMsg('No matching products found')
+
             } catch (error) {
                 console.log(error);
             }
@@ -30,10 +34,36 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
         search()
     }, [key, products])
 
+    let handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>, product: Product) => {
+        event.stopPropagation();
+        addToCart(product)
+            .then((res) => {
+                addedToCartMsg(` ${product.name} added to cart`);
+                handleClose()
+
+            })
+            .catch((err) => console.log(err))
+    }
+
     let handleClose = () => {
         setKey("");
         setSearchRes([]);
     }
+
+    let handleClick = () => {
+        if (searchRes.length > 0) {
+            navigate(`/search/${key}`);
+        }
+    }
+
+    let handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleClick();
+            handleClose();
+        }
+    }
+
 
     return (
         <>
@@ -50,12 +80,11 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
                             setKey(e.target.value);
                             setSearchQuery(e.target.value)
                         }}
+                        onKeyDown={handleEnterPress}
                     />
-                    {key && <button type="button" className="btn close-btn" onClick={handleClose}><i className="fa-solid fa-xmark"></i></button>}
+                    {key && (<button type="button" className="btn close-btn" onClick={handleClose}><i className="fa-solid fa-xmark"></i></button>)}
 
-                    <button className="btn search-btn"
-                    //  onClick={() => handleSearch(key)}
-                    ><i className="fa-solid fa-magnifying-glass"></i></button>
+                    <i className="fa-solid fa-magnifying-glass ms-1" onClick={() => { handleClick(); handleClose(); }}></i>
                 </div>
 
 
@@ -69,13 +98,12 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
                                     <h5 className="product-name">{product.name}</h5>
                                     <p>Price: {currencyFormat(product.price)}</p>
                                 </div>
-                                <div className="btn-container"><button className="btn addToCart btn-outline-info">Add To Cart</button></div>
+                                <div className="btn-container"><button type="button" className="btn addToCart btn-outline-info" onClick={(e) => handleAddToCart(e, product)}>Add To Cart</button></div>
 
                             </div>
                         ))}
                     </div>
                 )}
-                {/* </div > */}
             </form >
         </>
     )

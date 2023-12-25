@@ -1,22 +1,19 @@
 .paging-container {
     display: flex;
     justify-content: center;
-    list-style: none;
-    padding: 0;
     margin-top: 20px;
+    // background-color;
+    // color: purple;
 }
 
-.paging-container li {
-    display: inline-block;
-    margin-right: 5px;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
+.paging-container .pagination .page-link {
+    color: var(--text);
+    background-color: var(--paging-background);
 }
 
-.paging-container li.active-page {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
+.paging-container .pagination .page-item.active .page-link {
+    background-color: var(--paging-active);
+    border-color: gainsboro;
+    color: var(--text);
+
 }

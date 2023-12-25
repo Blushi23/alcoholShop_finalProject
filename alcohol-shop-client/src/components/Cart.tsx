@@ -55,7 +55,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading }) => {
             <h3>Cart</h3>
             <div className="row">
                 <div className="col-md-8">
-                    {Loading ? (<Loading />) : (productsInCart.length ? (
+                    {loading ? (<Loading />) : (productsInCart.length ? (
                         <table className="table">
                             <thead>
                                 <tr>
@@ -101,7 +101,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading }) => {
                     {/* <h6>There are {totalProducts} products in the cart</h6> */}
                     {/* <h4><b>Total Price:{totalPrice} NIS</b></h4> */}
                     {/* <h4><b>Total Price: {totalPrice} NIS</b></h4> */}
-                    <button className="btn checkout-btn" onClick={() => navigate("/delivery")}>Proceed to checkout</button>
+                    <button className="btn checkout-btn btn-info" onClick={() => navigate("/delivery")}>Proceed to checkout</button>
 
                 </div>
             </div>

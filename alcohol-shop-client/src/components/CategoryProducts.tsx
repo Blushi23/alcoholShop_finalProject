@@ -11,6 +11,7 @@ import ReactDOMServer from 'react-dom/server';
 import { currencyFormat } from "../services/CurrencyFormat";
 import Loading from "./Loading";
 import Search from "./Search";
+import { Pagination } from "react-bootstrap";
 
 interface CategoryProductsProps {
     userInfo: any;
@@ -50,7 +51,9 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                 .then((res) => {
                     setCategoryProducts(res.data);
                     setData(res.data);
-                    setTotalPages(Math.ceil(res.data.length / itemsPerPage));
+                    let calculatedPages = Math.ceil(res.data.length / itemsPerPage)
+                    setTotalPages(calculatedPages);
+                    setCurrentPage(prevPage => Math.min(prevPage, calculatedPages - 1))
                     setLoading(false);
                     // setFilteredProducts(res.data);
 
@@ -64,8 +67,9 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                 .then((res) => {
                     setCategoryProducts(res.data);
                     setData(res.data);
-                    setTotalPages(Math.ceil(res.data.length / itemsPerPage))
-                    // setFilteredProducts(res.data);
+                    let calculatedPages = Math.ceil(res.data.length / itemsPerPage)
+                    setTotalPages(calculatedPages);
+                    setCurrentPage(prevPage => Math.min(prevPage, calculatedPages - 1))                    // setFilteredProducts(res.data);
 
                 })
                 .catch((err) => console.log(err));
@@ -81,9 +85,8 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
     let subset = data.slice(startIndex, endIndex);
     // let subset = filteredProducts.slice(startIndex, endIndex);
 
-    let handlePageChange = (selectedPage: any) => {
-        setCurrentPage(selectedPage.selected);
-    };
+    let handlePaginationClick = (pageNumber: number) => { setCurrentPage(pageNumber - 1) };
+
 
     let handleAddToCart = (product: Product) => {
         addToCart(product)
@@ -157,15 +160,22 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
                             ))}
                         </div>
-                        <ReactPaginate
-                            pageCount={totalPages}
-                            onPageChange={handlePageChange}
-                            forcePage={currentPage - 1}
-                            previousLabel={"<<"}
-                            nextLabel={">>"}
-                            breakLabel={"..."}
-                            containerClassName="paging-container"
-                            activeClassName="active-page" />
+                        <div className="paging-container">
+                            <Pagination>
+                                <Pagination.First onClick={() => handlePaginationClick(1)} />
+                                <Pagination.Prev onClick={() => currentPage > 0 && handlePaginationClick(currentPage)} disabled={currentPage === 0} />
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <Pagination.Item
+                                        key={index + 1}
+                                        active={index === currentPage}
+                                        onClick={() => handlePaginationClick(index + 1)}>
+                                        {index + 1}
+                                    </Pagination.Item>
+                                ))}
+                                <Pagination.Next onClick={() => currentPage < totalPages - 1 && handlePaginationClick(currentPage + 2)} disabled={currentPage === totalPages - 1} />
+                                <Pagination.Last onClick={() => handlePaginationClick(totalPages)} />
+                            </Pagination>
+                        </div>
                     </div>
                 )}
                 {viewMode === 'table' && (
@@ -194,15 +204,22 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                                 ))}
                             </tbody>
                         </table>
-                        <ReactPaginate
-                            pageCount={totalPages}
-                            onPageChange={handlePageChange}
-                            forcePage={currentPage - 1}
-                            previousLabel={"<<"}
-                            nextLabel={">>"}
-                            breakLabel={"..."}
-                            containerClassName="paging-container"
-                            activeClassName="active-page" />
+                        <div className="paging-container">
+                            <Pagination>
+                                <Pagination.First onClick={() => handlePaginationClick(1)} />
+                                <Pagination.Prev onClick={() => currentPage > 0 && handlePaginationClick(currentPage)} disabled={currentPage === 0} />
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <Pagination.Item
+                                        key={index + 1}
+                                        active={index === currentPage}
+                                        onClick={() => handlePaginationClick(index + 1)}>
+                                        {index + 1}
+                                    </Pagination.Item>
+                                ))}
+                                <Pagination.Next onClick={() => currentPage < totalPages - 1 && handlePaginationClick(currentPage + 2)} disabled={currentPage === totalPages - 1} />
+                                <Pagination.Last onClick={() => handlePaginationClick(totalPages)} />
+                            </Pagination>
+                        </div>
 
                     </div>
                 )}

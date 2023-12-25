@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Product from "../interfaces/Product";
 import ReactPaginate from "react-paginate";
 import Loading from "./Loading";
+import { Pagination } from "react-bootstrap";
+import ProductsManagmentSearch from "./ProductsManagmentSearch";
 
 interface ProductsManagmentProps {
     products: any;
@@ -15,18 +17,28 @@ interface ProductsManagmentProps {
     userInfo: any;
     loading: any;
     setLoading: Function;
+    searchQuery: any;
+    setSearchQuery: Function;
 
 }
 
-const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products, setProducts, userInfo, loading, setLoading }) => {
+const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products, setProducts, userInfo, loading, setLoading, searchQuery, setSearchQuery }) => {
     let [productsChanged, setProductsChanged] = useState<boolean>(false)
     let [data, setData] = useState([]);
     let [currentPage, setCurrentPage] = useState(0);
+
     let [totalPages, setTotalPages] = useState(0);
     let itemsPerPage = 12;
     let theme = useContext(siteTheme);
     let darkMode = theme === "dark";
 
+    let filteredProducts = products.filter((product: Product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    let filteredTotalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+    useEffect(() => {
+        setCurrentPage(0);
+    }, [searchQuery]);
 
     useEffect(() => {
         setLoading(true);
@@ -34,22 +46,20 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
             .then((res) => {
                 setProducts(res.data);
                 setData(res.data);
-                setTotalPages(Math.ceil(res.data.length / itemsPerPage))
+                let calculatedPages = Math.max(Math.ceil(res.data.length / itemsPerPage), 0);
+                setTotalPages(calculatedPages);
+                setCurrentPage(prevPage => Math.min(prevPage, Math.max(calculatedPages - 1, 0)))
                 setLoading(false);
 
             })
             .catch((err) => {
                 console.log(err); setLoading(false);
             });
-    }, [productsChanged, setProducts, itemsPerPage])
+    }, [productsChanged, setProducts, itemsPerPage, setLoading])
 
     let startIndex = currentPage * itemsPerPage;
     let endIndex = startIndex + itemsPerPage;
-    let subset = data.slice(startIndex, endIndex);
-
-    const handlePageChange = (selectedPage: any) => {
-        setCurrentPage(selectedPage.selected);
-    };
+    let subset = filteredProducts.slice(startIndex, endIndex);
 
     let render = () => {
         setProductsChanged(!productsChanged)
@@ -64,12 +74,23 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                 })
                 .catch((err) => console.log(err));
         }
-
     }
+
+    let handlePaginationClick = (pageNumber: number) => { setCurrentPage(pageNumber - 1) };
+
+    // let filteredProducts = products.filter((product: Product) =>
+    //     product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
+
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
 
     return (
         <div className={`${theme}`}>
+            <div className="managment-search">
+                <ProductsManagmentSearch products={products} setSearchQuery={setSearchQuery} />
+                {/* Rest of your Products Management UI... */}
+            </div>
+            <h2 className="text-center">Products Managment</h2>
             {(userInfo.isAdmin === true) && (
                 <Link to="/new-product" className="btn btn-info"><i className="fa-solid fa-plus" /> Add new product</Link>
             )}
@@ -106,15 +127,29 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
 
                         ))}
                     </div>
-                    <ReactPaginate
-                        pageCount={totalPages}
-                        onPageChange={handlePageChange}
-                        forcePage={currentPage}
-                        previousLabel={"<<"}
-                        nextLabel={">>"}
-                        breakLabel={"..."}
-                        containerClassName="paging-container"
-                        activeClassName="active-page" />
+
+                    <div className="paging-container">
+                        <Pagination>
+                            <Pagination.First onClick={() => handlePaginationClick(1)} />
+                            <Pagination.Prev onClick={() => currentPage > 0 && handlePaginationClick(currentPage)} disabled={currentPage === 0} />
+                            {Array.from({
+                                length: searchQuery ? filteredTotalPages : totalPages
+                            }, (_, index) => (
+                                // {Array.from({ length: totalPages }, (_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index === currentPage}
+                                    onClick={() => handlePaginationClick(index + 1)}>
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next onClick={() => currentPage < (searchQuery ? filteredTotalPages - 1 : totalPages - 1) && handlePaginationClick(currentPage + 2)} disabled={currentPage === (searchQuery ? filteredTotalPages - 1 : totalPages - 1)} />
+                            {/* <Pagination.Next onClick={() => currentPage < totalPages - 1 && handlePaginationClick(currentPage + 2)} disabled={currentPage === totalPages - 1} /> */}
+                            <Pagination.Last onClick={() => handlePaginationClick(searchQuery ? filteredTotalPages : totalPages)} />
+                            {/* <Pagination.Last onClick={() => handlePaginationClick(totalPages)} /> */}
+                        </Pagination>
+                    </div>
+
                 </div>
             ) : (<p>No products found</p>))}
 

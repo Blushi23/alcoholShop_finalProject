@@ -18,7 +18,7 @@ export function updateUser(updatedUser: User, id: string) {
 }
 
 export function updateUserRole(roleUpdated: boolean, id: string) {
-    return axios.patch(`${api}/${id}`, roleUpdated, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
+    return axios.patch(`${api}/${id}`, { isAdmin: roleUpdated }, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
 
 export function getTokenDetails() {

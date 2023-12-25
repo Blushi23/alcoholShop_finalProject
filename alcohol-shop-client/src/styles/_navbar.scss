@@ -67,6 +67,10 @@
     color: var(--dark-purple);
 }
 
+.manager-page {
+    text-align: center;
+}
+
 .dropdown-menu li:first-child Link:hover {
     background-color: #f1f1f1;
 }
@@ -77,6 +81,10 @@
         max-height: 350px;
         overflow-y: scroll;
     }
+
+    .manager-page {
+        text-align: left;
+    }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1140px) {
@@ -84,6 +92,8 @@
         width: 40vw;
         flex-wrap: wrap;
     }
+
+
 }
 
 .dropdown-menu {
