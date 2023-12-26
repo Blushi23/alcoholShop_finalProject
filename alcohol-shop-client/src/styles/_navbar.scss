@@ -155,7 +155,10 @@
     border-radius: 50%;
 }
 
-.searc-bar-locator {}
+.searc-bar-locator-small-screen {
+
+    display: none;
+}
 
 
 @media (max-width:991px) {

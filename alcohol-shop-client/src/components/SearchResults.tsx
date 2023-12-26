@@ -55,7 +55,7 @@ const SearchResults: FunctionComponent<SearchResultsProps> = ({ products, setPro
                                 <p>Volume: {product.volume} ml</p>
                                 <p className="card-text">Price: {currencyFormat(product.price)}</p>
 
-                                <div className="mt-auto">
+                                <div className="add-to-cart">
                                     {quantity === 0 ? (<button className="btn w-100 btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>) : (<div className="d-flex align-items-center flex-column" style={{ gap: ".5rem" }}>
                                         <div className="d-flex align-items-center justify-content-center quantityBtn" style={{ gap: ".5rem" }}>
                                             <button className="btn ">-</button>

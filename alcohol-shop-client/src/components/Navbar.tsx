@@ -45,17 +45,6 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
 
                     <div className="search-bar-locator">
-                        {/* {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : null}
-                        <button type="button" className="btn search-btn" onClick={() => {
-                            if (searchBarOpen && searchQuery.trim() !== "") {
-                                navigate(`/search/${searchQuery}`);
-                                setSearchBarOpen(false);
-                            } else {
-                                setSearchBarOpen(true);
-                            }
-                        }}><i className="fa-solid fa-magnifying-glass"></i></button> */}
-                        {/* </div> */}
-
                         {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
                                 if (setSearchBarOpen && searchQuery.trim() !== "") {
@@ -131,17 +120,20 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             )}
                         </ul>
 
-                        {/* {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
-                            <button className="btn search-btn" onClick={() => setSearchBarOpen(true)}>
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                            </button>)} */}
-                        {/* <Search products={products} setSearchQuery={setSearchQuery} /> */}
-                        {/* <form className="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                            // onChange={(e) => setInputSearch(e.target.value)} 
-                            />
-                            <button className={`btn search-btn btn-outline-${theme}`} type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
-                        </form> */}
+                        {/* <div className="search-bar-locator">
+                            {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
+                                <button type="button" className="btn search-btn" onClick={() => {
+                                    if (setSearchBarOpen && searchQuery.trim() !== "") {
+                                        navigate(`/search/${searchQuery}`);
+                                        setSearchBarOpen(false);
+                                    } else { setSearchBarOpen(true); }
+                                }}>
+                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                </button>
+
+                            )}
+
+                        </div> */}
 
                         {!userInfo.email && (
                             <>

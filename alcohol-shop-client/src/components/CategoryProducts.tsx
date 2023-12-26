@@ -34,15 +34,13 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
     let [productsChanged, setProductsChanged] = useState<boolean>(false);
     let [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
-    // let [data, setData] = useState([]);
     let [data, setData] = useState<Product[]>([]);
-    // let [searchQuery, setSearchQuery] = useState<string>("");
 
     let [currentPage, setCurrentPage] = useState(0);
     let [totalPages, setTotalPages] = useState(0);
     let itemsPerPage = 12;
-    let quantity = 1;
-    // let [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+    let quantity = 0;
+
 
     useEffect(() => {
         if (category && subcategory) {
@@ -99,15 +97,17 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
     let pageTitle = subcategory ? subcategory : category
 
-
-
     return (
         <div className={`${theme}`}>
             <h2 className="pageTitle text-uppercase">{pageTitle}</h2>
             <hr className="mx-5" />
             <div className="row">
                 <div className="col"><button type="button" className="btn" onClick={() => { }}><i className="fa-solid fa-filter"></i> Filter</button>
+
+
                     <button className="btn"><i className="fa-solid fa-sort"></i> Sort</button>
+
+
                     <button className="btn" onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}><i className="fa-solid fa-table-cells-large"></i> | <i className="fa-solid fa-list"></i></button></div>
                 {/* <div className="col"><Search products={products} setSearchQuery={setSearchQuery} /></div> */}
 
