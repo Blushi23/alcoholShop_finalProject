@@ -51,6 +51,9 @@ function App() {
 
   //Products & Carts
   // let [products, setProducts] = useState<Product[]>([]);
+  type Quantity = { [key: string]: number };
+  let [quantity, setQuantity] = useState<Quantity>({});
+
   let [allProducts, setAllProducts] = useState<Product[]>([]);
   let [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
   useEffect(() => {
@@ -87,7 +90,7 @@ function App() {
         {/* <ShoppingCartProvider> */}
         <ToastContainer theme={`${darkMode ? "dark" : "light"}`} />
         <Router  >
-          <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
+          <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} quantity={quantity} />
 
           <Routes>
             <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} products={allProducts} setProducts={setAllProducts} loading={loading} setLoading={setLoading} />} />
@@ -102,7 +105,7 @@ function App() {
             <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
             <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
             <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
-            <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} />} />
+            <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} />} />
             <Route path='/searching' element={<Search products={allProducts} setSearchQuery={setSearchQuery} />} />
             <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
             <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} />} />

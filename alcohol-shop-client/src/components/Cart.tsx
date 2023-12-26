@@ -8,14 +8,16 @@ import { getProducts } from "../services/productsService";
 interface CartProps {
     loading: any;
     setLoading: Function
+    quantity: Quantity;
+    setQuantity: Function;
 
 }
 type Quantity = { [key: string]: number };
 
-const Cart: FunctionComponent<CartProps> = ({ loading, setLoading }) => {
+const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, setQuantity }) => {
     let navigate = useNavigate();
     let [productsInCart, setProductsInCart] = useState<Product[]>([])
-    let [quantity, setQuantity] = useState<Quantity>({});
+    // let [quantity, setQuantity] = useState<Quantity>({});
     let [productsChanged, setProductsChanged] = useState<boolean>(false);
     let totalQuantity = Object.values(quantity).reduce((total, currentQuantity) => total + currentQuantity, 0);
     // let render = () => setProductsChanged(!productsChanged);

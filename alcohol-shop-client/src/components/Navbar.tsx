@@ -21,13 +21,18 @@ interface NavbarProps {
     // setInputSearch: Function;
     setSearchQuery: Function;
     searchQuery: any;
+    quantity: Quantity;
 }
+type Quantity = { [key: string]: number };
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery }) => {
+
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, quantity }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
 
     let [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
+
+    let totalQuantity = Object.values(quantity).reduce((total, currentQuantity) => total + currentQuantity, 0);
 
     let logout = () => {
         sessionStorage.removeItem("userInfo");
@@ -156,7 +161,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                                 <i className="fa-solid fa-cart-shopping"></i>
                                 <div className="position-relative">
                                     <div className="items-counter rounded-circle w-100 d-flex justify-content-center align-items-center position-absolute">
-                                        30
+                                        {totalQuantity}
                                     </div>
                                 </div>
                             </button>
