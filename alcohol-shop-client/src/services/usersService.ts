@@ -1,5 +1,5 @@
 import axios from "axios";
-import User from "../interfaces/User";
+import User, { DeliveryDetails } from "../interfaces/User";
 import { jwtDecode } from "jwt-decode";
 // import jwt_decode from "jwt-decode";
 
@@ -16,6 +16,9 @@ export function checkUser(userToCheck: User) {
 export function updateUser(updatedUser: User, id: string) {
     return axios.put(`${api}/${id}`, updatedUser, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
+// export function updateDeliveryDetails(updatedUser: DeliveryDetails, id: string) {
+//     return axios.put(`${api}/delivery/${id}`, updatedUser, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
+// }
 
 export function updateUserRole(roleUpdated: boolean, id: string) {
     return axios.patch(`${api}/${id}`, { isAdmin: roleUpdated }, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })

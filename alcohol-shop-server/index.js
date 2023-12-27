@@ -5,6 +5,7 @@ const cors = require("cors");
 const users = require("./routes/users")
 const products = require("./routes/products")
 const carts = require("./routes/carts")
+const orders = require("./routes/orders")
 require("dotenv").config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(morgan(':date[clf] :method :url :status :response-time ms'));
 app.use("/api/users", users);
 app.use("/api/products", products);
 app.use("/api/carts", carts);
+app.use("/api/orders", orders);
 
 // const projectId = process.env.MONGO_ATLAS_PROJECT_ID
 // const clusterName = process.env.MONGO_ATLAS_CLUSTER

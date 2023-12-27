@@ -150,6 +150,24 @@ router.put("/:id", auth, async (req, res) => {
         res.status(400).send(error);
     }
 })
+// //Edit user's delivery profile
+// router.put("/delivery/:id", auth, async (req, res) => {
+//     try {
+//         if (req.payload.isAdmin == false && !req.payload._id == req.params.id) return res.status(400).send("Access denied. No authorization to edit this profile");
+
+//         const { error } = userSchema.validate(req.body)
+//         if (error) return res.status(400).send(error);
+
+//         let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
+
+//         // await user.save();
+
+//         res.status(200).send(user);
+
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// })
 
 // Update user's role 
 router.patch("/:id", auth, async (req, res) => {

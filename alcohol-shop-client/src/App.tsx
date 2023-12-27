@@ -16,17 +16,18 @@ import UpdateAccount from './components/UpdateAccount';
 import CategoryProducts from './components/CategoryProducts';
 import ProductPage from './components/ProductPage';
 import Product from './interfaces/Product';
-// import Payment from './components/Payment';
+import Payment from './components/Payment';
 import UsersManagment from './components/UsersManagment';
 import ProductsManagment from './components/ProductsManagment';
 import NewProduct from './components/NewProduct';
 import EditProduct from './components/EditProduct';
-import DeliveryDetails from './components/DeliveryDetails';
+// import DeliveryDetails from './components/DeliveryDetails';
 import Search from './components/Search';
 import { getProducts } from './services/productsService';
 import SearchResults from './components/SearchResults';
 import ProductsManagmentSearch from './components/ProductsManagmentSearch';
-// import DeliveryDetails from './components/DeliveryDetails';
+import DeliveryDetails from './components/DeliveryDetails';
+
 
 let theme = {
   light: "light",
@@ -48,11 +49,15 @@ function App() {
   let handleUpdateUser = (updatedUser: User) => {
     setUsers((pervUsers) => pervUsers.map((user) => (user._id === updatedUser._id ? updatedUser : user)))
   }
+  // let handleUpdateDeliveryUser = (updatedUser: User) => {
+  //   setUsers((pervUsers) => pervUsers.map((user) => (user._id === updatedUser._id ? updatedUser : user)))
+  // }
 
   //Products & Carts
   // let [products, setProducts] = useState<Product[]>([]);
   type Quantity = { [key: string]: number };
   let [quantity, setQuantity] = useState<Quantity>({});
+  let [cartData, setCartData] = useState<any>();
 
   let [allProducts, setAllProducts] = useState<Product[]>([]);
   let [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
@@ -105,13 +110,16 @@ function App() {
             <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
             <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
             <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
-            <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} />} />
+            <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} userInfo={userInfo} cartData={cartData} setCartData={setCartData} />} />
             <Route path='/searching' element={<Search products={allProducts} setSearchQuery={setSearchQuery} />} />
             <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
             <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} />} />
+            <Route path='/delivery' element={<DeliveryDetails userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} cartData={cartData} />} />
+
+            {/* <Route path='/delivery' element={<DeliveryDetails openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} user={user} setUser={setUser} userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} /> */}
 
 
-            {/* <Route path='/delivery' element={<DeliveryDetails openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} user={user} /*setUser={setUser} setUserInfo={setUserInfo}*/ /*userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} /> */}
+
 
             {/* <Route path='/payment' element={<Payment holderName='' cardNumber='' expiration='' cvc='' focus='' />} /> */}
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
 import Product from "../interfaces/Product";
-import { ReactNode, createContext, useContext } from "react";
 
 let api: string = `${process.env.REACT_APP_API}/carts`;
 

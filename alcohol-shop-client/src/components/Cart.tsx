@@ -4,22 +4,32 @@ import { addToCart, getCart, reduceFromCart, removeProductFromCart } from "../se
 import { addedToCartMsg, successMsg } from "../services/feedbackService";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/productsService";
+import { currencyFormat } from "../services/CurrencyFormat";
+import DeliveryDetails from "./DeliveryDetails";
+import { userInfo } from "os";
 
 interface CartProps {
     loading: any;
     setLoading: Function
     quantity: Quantity;
     setQuantity: Function;
+    openPaymentModal: boolean;
+    setOpenPaymentModal: Function;
+    userInfo: any;
+    cartData: any;
+    setCartData: Function
 
 }
 type Quantity = { [key: string]: number };
 
-const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, setQuantity }) => {
+const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, setQuantity, openPaymentModal, setOpenPaymentModal, userInfo, cartData, setCartData }) => {
     let navigate = useNavigate();
     let [productsInCart, setProductsInCart] = useState<Product[]>([])
+    // let [cartData, setCartData] = useState<any>();
     // let [quantity, setQuantity] = useState<Quantity>({});
     let [productsChanged, setProductsChanged] = useState<boolean>(false);
     let totalQuantity = Object.values(quantity).reduce((total, currentQuantity) => total + currentQuantity, 0);
+    let totalPrice = currencyFormat(productsInCart.reduce((total, product) => total + (product.price * (quantity[product._id as string] || 0)), 0))
     // let render = () => setProductsChanged(!productsChanged);
 
 
@@ -29,13 +39,14 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
         let userId: string = JSON.parse(sessionStorage.getItem("userInfo") as string).userId;
         getCart()
             .then((res) => {
+                setCartData(res.data);
                 setProductsInCart(res.data);
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err); setLoading(false);
             })
-    }, [productsChanged, setLoading]);
+    }, [productsChanged, setCartData, setLoading]);
 
 
 
@@ -90,6 +101,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                     getCart()
                         .then((res) => {
                             setProductsInCart(res.data);
+                            // setProductsInCart(res.data);
                         })
                         .catch((err) => console.log(err))
                 })
@@ -113,6 +125,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -131,6 +144,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                                             {/* <button className="btn" onClick={() => handleIncrement(product._id)}>+</button> */}
                                             <button className="btn" onClick={() => handleAddToCart(product)}>+</button>
                                         </td>
+                                        <td>{product.price * (quantity[product._id as string] || 0)} &#8362;</td>
                                         {/* <td>{product.quantity}</td> */}
                                         <td><button className="btn" onClick={() => handleRemoveFromCart(product._id)}><i className="fa-solid fa-trash-can"></i> Remove</button></td>
                                     </tr>
@@ -145,13 +159,17 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                     <h4 className="text-center">Order Summary</h4>
                     <hr />
                     <h6>{`There are ${totalQuantity} products in the cart`}</h6>
-                    {/* <h4><b>Total Price:{totalPrice} NIS</b></h4> */}
-                    {/* <h4><b>Total Price: {totalPrice} NIS</b></h4> */}
+                    <h4><b>Total Price:{totalPrice}</b></h4>
                     <button className="btn checkout-btn btn-info" onClick={() => navigate("/delivery")}>Proceed to checkout</button>
 
                 </div>
             </div>
 
+            {/* <DeliveryDetails
+                openPaymentModal={openPaymentModal}
+                setOpenPaymentModal={setOpenPaymentModal}
+                userInfo={userInfo}
+                cartData={cartData} /> */}
         </>
     )
 }

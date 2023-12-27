@@ -15,3 +15,5 @@ export default interface User {
     _id?: string;
     isAdmin?: boolean;
 }
+
+export interface DeliveryDetails extends Omit<User, 'password'> { }
