@@ -2,16 +2,17 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Product from "../interfaces/Product";
 import { currencyFormat } from "../services/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
-import { addedToCartMsg, warningMsg } from "../services/feedbackService";
+import { addedToCartMsg, successMsg, warningMsg } from "../services/feedbackService";
 import { addToCart, updateCart } from "../services/cartService";
 
 interface SearchProps {
     products: Product[];
     setSearchQuery: Function;
+    updateCartData: Function;
     // updateCart: Function;
 }
 
-const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery, /*updateCart*/ }) => {
+const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery, updateCartData /*updateCart*/ }) => {
     let navigate = useNavigate()
     let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
@@ -39,7 +40,9 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery, /*up
         event.stopPropagation();
         addToCart(product)
             .then((res) => {
-                addedToCartMsg(` ${product.name} added to cart`);
+                successMsg(` ${product.name} added to cart`);
+                // addedToCartMsg(` ${product.name} added to cart`);
+                updateCartData(product)
                 // updateCart();
                 handleClose()
 

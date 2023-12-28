@@ -4,13 +4,10 @@ import { getProductByCategory, getProductBySubCategory } from "../services/produ
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import Product from "../interfaces/Product";
 // import Filter from "./Filter";
-import ReactPaginate from "react-paginate";
-import { addToCart } from "../services/cartService";
+import { addToCart, getCart } from "../services/cartService";
 import { addedToCartMsg, successMsg } from "../services/feedbackService";
-import ReactDOMServer from 'react-dom/server';
 import { currencyFormat } from "../services/CurrencyFormat";
 import Loading from "./Loading";
-import Search from "./Search";
 import { Pagination } from "react-bootstrap";
 
 interface CategoryProductsProps {
@@ -25,6 +22,8 @@ interface CategoryProductsProps {
     setSearchQuery: Function;
 
 }
+type Quantity = { [key: string]: number };
+
 
 const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryProducts, setCategoryProducts, userInfo, inputSearch, setInputSearch, loading, setLoading, searchQuery, setSearchQuery }) => {
     let theme = useContext(siteTheme);
@@ -39,7 +38,10 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
     let [currentPage, setCurrentPage] = useState(0);
     let [totalPages, setTotalPages] = useState(0);
     let itemsPerPage = 12;
+    let [productQuantity, setProductQuantity] = useState<Quantity>({});
+
     let quantity = 0;
+
 
 
     useEffect(() => {
@@ -72,6 +74,20 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                 })
                 .catch((err) => console.log(err));
         }
+        getCart()
+            .then((res) => {
+                let quantities: Quantity = {};
+                res.data.forEach((product: Product) => {
+                    if (product._id) {
+                        quantities[product._id] = product.quantity || 0;
+                    }
+                });
+                setProductQuantity(quantities);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
     }, [productsChanged, setCategoryProducts, category, subcategory, itemsPerPage, setLoading]);
 
     // useEffect(() => {
@@ -122,8 +138,6 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
 
 
-
-
             {loading ? (<Loading />) : (filteredProducts.length > 0 ? (<>
                 {viewMode === 'cards' && (
                     <div className="container">
@@ -146,10 +160,19 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                                         <p className="card-text">Price: {currencyFormat(product.price)}</p>
 
                                         <div className="mt-auto">
+
+                                            {/* {productQuantity[product._id as string] === 0 ? (<button className="btn w-100 btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>) : (<div className="d-flex align-items-center flex-column" style={{ gap: ".5rem" }}>
+                                                <div className="d-flex align-items-center justify-content-center quantityBtn" style={{ gap: ".5rem" }}>
+                                                    <button className="btn ">-</button>
+                                                    <div><span className="fs-5 ">{productQuantity[product._id as string]}</span> in cart</div>
+                                                    <button className="btn ">+</button>
+                                                </div>
+                                                <button className="btn bg-danger removeBtn" >Remove</button>
+                                            </div>)} */}
                                             {quantity === 0 ? (<button className="btn w-100 btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>) : (<div className="d-flex align-items-center flex-column" style={{ gap: ".5rem" }}>
                                                 <div className="d-flex align-items-center justify-content-center quantityBtn" style={{ gap: ".5rem" }}>
                                                     <button className="btn ">-</button>
-                                                    <div><span className="fs-5 ">{quantity}</span> in cart</div>
+                                                    <div><span className="fs-5 ">{product.quantity}</span> in cart</div>
                                                     <button className="btn ">+</button>
                                                 </div>
                                                 <button className="btn bg-danger removeBtn" >Remove</button>

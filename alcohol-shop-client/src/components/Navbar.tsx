@@ -21,13 +21,14 @@ interface NavbarProps {
     // setInputSearch: Function;
     setSearchQuery: Function;
     searchQuery: any;
+    updateCartData: Function;
     // updateCart: Function;
     // quantity: Quantity;
 }
 // type Quantity = { [key: string]: number };
 
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, /*updateCart /*quantity*/ }) => {
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, updateCartData /*updateCart /*quantity*/ }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
     let quantityContext = useContext(QuantityContext);
@@ -53,7 +54,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
 
                     <div className="search-bar-locator">
-                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} /*updateCart={updateCart}*/ />) : (
+                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData}/*updateCart={updateCart}*/ />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
                                 if (setSearchBarOpen && searchQuery.trim() !== "") {
                                     navigate(`/search/${searchQuery}`);

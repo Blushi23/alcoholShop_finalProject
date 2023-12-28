@@ -5,6 +5,8 @@ import AgeConfirmation from "./AgeConfirmation";
 import { getProductByCategory, getProductBySubCategory } from "../services/productsService";
 import Product from "../interfaces/Product";
 import Loading from "./Loading";
+import { addToCart } from "../services/cartService";
+import { addedToCartMsg } from "../services/feedbackService";
 
 interface HomeProps {
     openAgeModal: boolean;
@@ -61,6 +63,12 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
     }, [])
     // }, [setProducts, category, subcategory])
 
+    let handleAddToCart = (product: Product) => {
+        addToCart(product)
+            .then((res) => addedToCartMsg(` ${product.name} added to cart`))
+            .catch((err) => console.log(err))
+    }
+
     return (
         <>
             {!userInfo.email && (
@@ -92,7 +100,7 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                         <h5 className="card-title">{product.name}</h5>
                                         <p>Volume: {product.volume} ml</p>
                                         <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => { }}>Add to cart</button>
+                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
                                     </div>
                                 </div>
                             )))}
@@ -122,7 +130,7 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                         <h5 className="card-title">{product.name}</h5>
                                         <p>Volume: {product.volume} ml</p>
                                         <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => { }}>Add to cart</button>
+                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
                                     </div>
                                 </div>
                             )))}
@@ -141,16 +149,17 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                     key={product._id}
                                     className="card col-md-3 mt-3 align-items-center m-2 ms-2"
                                     style={{ width: "16rem", height: "28rem" }}
-                                    onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)}>
+                                >
                                     <img src={product.image ? product.image : noImg}
                                         alt={product.name}
                                         style={{ height: "13rem" }}
-                                        className="mt-2" />
+                                        className="mt-2"
+                                        onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)} />
                                     <div className="card-body">
                                         <h5 className="card-title">{product.name}</h5>
                                         <p>Volume: {product.volume} ml</p>
                                         <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => { }}>Add to cart</button>
+                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
                                     </div>
                                 </div>
                             )))}

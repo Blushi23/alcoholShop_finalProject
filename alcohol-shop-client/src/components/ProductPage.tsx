@@ -3,6 +3,8 @@ import Product from "../interfaces/Product";
 import { siteTheme } from "../App";
 import { getProductById, getProducts } from "../services/productsService";
 import { useNavigate, useParams } from "react-router-dom";
+import { addToCart } from "../services/cartService";
+import { addedToCartMsg } from "../services/feedbackService";
 
 interface ProductPageProps {
     products: any;
@@ -32,6 +34,13 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
         }
     }, [setProducts, category, subcategory, id])
 
+    let handleAddToCart = (product: Product) => {
+        addToCart(product)
+            .then((res) => addedToCartMsg(` ${product.name} added to cart`))
+            .catch((err) => console.log(err))
+    }
+
+
     return (
         <>
             {product && (
@@ -44,7 +53,7 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
                             <h2>{`${product.name}`}</h2>
                             <h5 className="mt-5">Price: {`${product.price}`} &#8362;</h5>
                             <p>Bottle volume: {`${product.volume}`} ml</p>
-                            <button className="btn" onClick={() => { }}>Add To Cart</button>
+                            <button className="btn" onClick={() => handleAddToCart(product!)}>Add To Cart</button>
                         </div>
                         <div className="productDescription">
                             <h6 className="productDescTitle">Description:</h6>
