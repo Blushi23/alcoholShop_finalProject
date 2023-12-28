@@ -1,7 +1,7 @@
 import { FunctionComponent, useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import User from "../interfaces/User";
-import { siteTheme } from "../App";
+import { QuantityContext, siteTheme } from "../App";
 import LoginModal from "./LoginModal";
 import Search from "./Search";
 import Product from "../interfaces/Product";
@@ -21,18 +21,21 @@ interface NavbarProps {
     // setInputSearch: Function;
     setSearchQuery: Function;
     searchQuery: any;
-    quantity: Quantity;
+    // updateCart: Function;
+    // quantity: Quantity;
 }
-type Quantity = { [key: string]: number };
+// type Quantity = { [key: string]: number };
 
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, quantity }) => {
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, /*updateCart /*quantity*/ }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
+    let quantityContext = useContext(QuantityContext);
+    let quantity = quantityContext ? quantityContext.quantity : {}
 
     let [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
 
-    let totalQuantity = Object.values(quantity).reduce((total, currentQuantity) => total + currentQuantity, 0);
+    let totalQuantity = Object.values(quantity).reduce((total: number, currentQuantity: any) => total + currentQuantity, 0);
 
     let logout = () => {
         sessionStorage.removeItem("userInfo");
@@ -50,7 +53,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
 
                     <div className="search-bar-locator">
-                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
+                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} /*updateCart={updateCart}*/ />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
                                 if (setSearchBarOpen && searchQuery.trim() !== "") {
                                     navigate(`/search/${searchQuery}`);
@@ -160,10 +163,13 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             <button className="btn shopping-cart-btn" onClick={() => navigate("/cart")}>
                                 <i className="fa-solid fa-cart-shopping"></i>
                                 <div className="position-relative">
+                                    {/* {totalQuantity > 0 && ( */}
                                     <div className="items-counter rounded-circle w-100 d-flex justify-content-center align-items-center position-absolute">
                                         {totalQuantity}
                                     </div>
+                                    {/* )} */}
                                 </div>
+
                             </button>
                         )}
                         {userInfo.email && (

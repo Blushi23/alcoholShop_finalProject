@@ -3,14 +3,15 @@ import Product from "../interfaces/Product";
 import { currencyFormat } from "../services/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
 import { addedToCartMsg, warningMsg } from "../services/feedbackService";
-import { addToCart } from "../services/cartService";
+import { addToCart, updateCart } from "../services/cartService";
 
 interface SearchProps {
     products: Product[];
-    setSearchQuery: Function
+    setSearchQuery: Function;
+    // updateCart: Function;
 }
 
-const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) => {
+const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery, /*updateCart*/ }) => {
     let navigate = useNavigate()
     let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
@@ -39,6 +40,7 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
         addToCart(product)
             .then((res) => {
                 addedToCartMsg(` ${product.name} added to cart`);
+                // updateCart();
                 handleClose()
 
             })
@@ -94,11 +96,11 @@ const Search: FunctionComponent<SearchProps> = ({ products, setSearchQuery }) =>
                             <div className="result-item" key={product._id} onClick={() => { navigate(`/products/${product.category}/${product.subcategory}/${product._id}`); handleClose() }}>
 
                                 <div className="img"><img src={product.image} alt={product.name} /></div>
-                                <div className="product-info">
+                                <div className="product-info mt-2 nb-0">
                                     <h5 className="product-name">{product.name}</h5>
                                     <p>Price: {currencyFormat(product.price)}</p>
                                 </div>
-                                <div className="btn-container"><button type="button" className="btn addToCart btn-outline-info" onClick={(e) => handleAddToCart(e, product)}>Add To Cart</button></div>
+                                <div className="btn-container"><button type="button" className="btn addToCart-btn" onClick={(e) => handleAddToCart(e, product)}>Add To Cart</button></div>
 
                             </div>
                         ))}

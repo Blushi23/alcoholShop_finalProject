@@ -1,10 +1,54 @@
 .submit-btn {
-    /* background-color: var(--redish); */
     border-radius: 50px;
+    color: var(--text);
+    background-color: var(--button);
+    border-color: var(--button);
+    font-family: var(--text-font);
+    font-weight: bold;
 }
 
 .submit-btn:hover {
-    background-color: var(--pink);
+    background-color: var(--button-hover);
+    border-color: var(--button-hover);
+    color: var(--text);
+}
+
+.submit-btn:focus,
+.submit-btn:active {
+    outline: none;
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+    color: var(--text);
+}
+
+.submit-btn:disabled {
+    background: var(--button);
+    border: var(--disabled-button);
+    font-weight: normal;
+    color: var(--text);
+}
+
+.backBtn,
+.refreshBtn {
+    border-color: var(--button);
+    font-family: var(--text-font);
+    color: var(--text);
+}
+
+.backBtn:hover,
+.refreshBtn:hover {
+    background-color: var(--button);
+    color: var(--text);
+}
+
+.backBtn:focus,
+.backBtn:active,
+.refreshBtn:focus,
+.refreshBtn:active {
+    outline: none;
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+    color: var(--text);
 }
 
 .register-link {
@@ -18,8 +62,8 @@
 
 .error-message {
     color: rgb(207, 22, 22);
-    font-weight: bold;
     text-align: center;
+    font-family: var(--text-font);
     background-color: var(--error-message-background);
     border-radius: 5px;
 }

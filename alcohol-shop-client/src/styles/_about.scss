@@ -1,3 +1,80 @@
 .aboutPage {
-    margin-top: 20px;
+    position: relative;
 }
+
+.imageContainer {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vh;
+    box-sizing: border-box;
+}
+
+.imageContainer img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.aboutText {
+    position: absolute;
+    // top: 50%;
+    top: 5%;
+    // left: 50%;
+    left: 7%;
+    // transform: translate(-70%, -40%);
+    // text-align: center;
+    color: var(--text);
+    text-align: justify;
+    max-width: 85%;
+    font-family: var(--text-font);
+    font-size: 1.1rem;
+}
+
+.aboutText h4,
+h6 {
+    font-family: var(--small-title);
+    color: var(--text);
+}
+
+.about-btn {
+    color: var(--text);
+    background-color: var(--button);
+}
+
+.about-btn:hover {
+    background-color: var(--button-hover);
+    color: var(--text);
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .aboutText {
+        font-size: 14px;
+    }
+
+    .aboutText h4 {
+        font-size: 1rem;
+    }
+
+    // .imageContainer img {
+    //     width: 100%;
+    //     height: auto 350vh;
+    // }
+}
+
+// .aboutPage img {
+
+//     margin-top: 20px;
+//     margin-left: 20px;
+//     height: 50rem;
+//     width: 75rem;
+//     // background-image: var(--about-background-image);
+
+
+// }

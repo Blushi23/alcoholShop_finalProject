@@ -1,0 +1,59 @@
+.modal-content {
+    background-color: var(--modal-background);
+}
+
+.nav-tabs .nav-link {
+    font-family: var(--text-font);
+    font-weight: bold;
+    color: var(--tabs);
+}
+
+.nav-tabs .nav-link.active {
+    border-color: var(--tabs);
+    background-color: var(--modal-background);
+    color: var(--text);
+}
+
+.register-btn {
+    color: var(--text);
+    background-color: var(--button);
+    border-color: var(--button);
+    font-family: var(--text-font);
+
+}
+
+.register-btn:hover {
+    background-color: var(--button-hover);
+    border-color: var(--button-hover);
+    color: var(--text);
+}
+
+.register-btn:focus,
+.register-btn:active {
+    outline: none;
+    // box-shadow: none;
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+    color: var(--text);
+}
+
+.guest-btn {
+    background-color: var(--guest-btn);
+    color: var(--text);
+    border-color: var(--button);
+    font-family: var(--text-font);
+}
+
+.guest-btn:hover {
+    background-color: var(--guest-btn-hover);
+    color: #fff;
+}
+
+.guest-btn:focus,
+.guest-btn:active {
+    outline: none;
+    // box-shadow: none;
+    background-color: var(--guest-btn-hover) !important;
+    border-color: var(--guest-btn-hover) !important;
+    color: #fff !important;
+}

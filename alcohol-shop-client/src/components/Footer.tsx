@@ -3,15 +3,19 @@ import { siteTheme } from "../App";
 import { Link } from "react-router-dom";
 import { userInfo } from "os";
 import LoginModal from "./LoginModal";
+import Contact from "./Contact";
+import { Button } from "react-bootstrap";
 
 interface FooterProps {
     userInfo: any;
     setUserInfo: Function;
     openLoginModal: boolean;
     setOpenLoginModal: Function;
+    openContactModal: boolean;
+    setOpenContactModal: Function;
 }
 
-const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpenLoginModal, openLoginModal }) => {
+const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpenLoginModal, openLoginModal, openContactModal, setOpenContactModal }) => {
     let theme = useContext(siteTheme);
     return (
         <>
@@ -23,7 +27,7 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                             <h5 className="footer-title">About</h5>
                             <ul className="footer-list">
                                 <li ><Link to="/about" className="footer-li">About Us</Link></li>
-                                <li ><Link to="#" className="footer-li">Contact Us</Link></li>
+                                <li ><button onClick={() => setOpenContactModal(true)} className=" btn footer-li">Contact Us</button></li>
 
                                 {/* <li>Returns and Refunds</li> */}
                                 {/* <li>FAQ</li> */}
@@ -107,6 +111,9 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                 setUserInfo={setUserInfo}
             // userId={openUserModal}
             />
+            <Contact
+                show={openContactModal}
+                onHide={() => setOpenContactModal(false)} />
         </>
     )
 }

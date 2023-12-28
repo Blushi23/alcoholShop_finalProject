@@ -1,0 +1,50 @@
+.age-modal-content {
+    background-color: var(--modal-background);
+}
+
+.warning,
+.age-modal-content,
+.sorryMsg {
+    color: var(--text);
+}
+
+.age-btn {
+    color: var(--text);
+    background-color: var(--button);
+    border-color: var(--button);
+    font-family: var(--text-font);
+    width: 70%;
+}
+
+.age-btn:hover {
+    background-color: var(--button-hover);
+    border-color: var(--button-hover);
+    color: var(--text);
+}
+
+.age-btn:focus,
+.age-btn:active {
+    outline: none;
+    // box-shadow: none;
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+    color: var(--text);
+}
+
+.age-modal-content img {
+    height: 10rem;
+
+}
+
+.age-modal-content h5 {
+    font-family: var(--title-font);
+}
+
+.age-modal-content p {
+    font-family: var(--text-font);
+    font-size: 1.1rem;
+}
+
+.age-modal-content .warning {
+    font-size: 0.83rem;
+}

@@ -1,0 +1,35 @@
+.contact-title {
+    font-family: var(--small-title);
+    color: var(--text);
+}
+
+.contact-btn {
+    color: var(--text);
+    background-color: var(--button);
+    margin-top: 10px;
+    width: 100%;
+}
+
+.contact-btn:hover {
+    background-color: var(--button-hover);
+    color: var(--text);
+}
+
+.modal-contact-content {
+    background-color: var(--modal-background);
+}
+
+.form-control {
+    background-color: var(--form-control);
+}
+
+.form-floating input,
+.form-floating textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.form-floating label {
+    color: var(--text)
+}

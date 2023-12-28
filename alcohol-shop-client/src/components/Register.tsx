@@ -85,7 +85,7 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur} />
                                 <label htmlFor="firstName">First Name *</label>
-                                {formik.touched.firstName && formik.errors.firstName && (<small className="error-message">{formik.errors.firstName}</small>)}
+                                {formik.touched.firstName && formik.errors.firstName && (<small className="error-message ">{formik.errors.firstName}</small>)}
                             </div></div>
                         <div className="col"><div className="form-floating mb-3">
                             <input name="lastName" type="text" className="form-control" id="lastName" placeholder="Duck"
@@ -116,8 +116,7 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur} />
                                 <label htmlFor="birthDate">Birth Date *</label>
-                                {/* <p className="text-danger"><b>Date update not available post-registration</b></p> */}
-                                <p><small className="text-danger"><b>No post-registration update</b></small></p>
+                                <p><small className="error-message "><b>No changing after registration </b></small></p>
                                 {formik.touched.birthDate && formik.errors.birthDate && (<small className="error-message">{formik.errors.birthDate}</small>)}
                             </div>
                         </div>
@@ -215,16 +214,16 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
 
                     <button
                         type="submit"
-                        className="btn submit-btn w-100 btn-primary"
+                        className="btn submit-btn w-100 "
                         disabled={!formik.isValid || !formik.dirty}>Register</button>
 
 
                     <div className="row">
                         <div className="col">
-                            <button className="btn backBtn w-50 ms-5 btn-outline-info my-3" onClick={() => onHide()}>Back</button>
+                            <button className="btn backBtn w-50 ms-5  my-3" onClick={() => onHide()}>Back</button>
                         </div>
                         <div className="col">
-                            <button type="reset" className="btn refreshBtn w-50 btn-outline-info ms-5 my-3" onClick={() => handleClearForm()}><i className="fa-solid fa-arrows-rotate"></i></button>
+                            <button type="reset" className="btn refreshBtn w-50  ms-5 my-3" onClick={() => handleClearForm()}><i className="fa-solid fa-arrows-rotate"></i></button>
                         </div>
                     </div>
                 </form >

@@ -30,7 +30,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
     let [productsChanged, setProductsChanged] = useState<boolean>(false);
     let totalQuantity = Object.values(quantity).reduce((total, currentQuantity) => total + currentQuantity, 0);
     let totalPrice = currencyFormat(productsInCart.reduce((total, product) => total + (product.price * (quantity[product._id as string] || 0)), 0))
-    // let render = () => setProductsChanged(!productsChanged);
+    let render = () => setProductsChanged(!productsChanged);
 
 
     useEffect(() => {
@@ -47,8 +47,40 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                 console.log(err); setLoading(false);
             })
     }, [productsChanged, setCartData, setLoading]);
+    // useEffect(() => {
+    //     const fetchCartData = async () => {
+    //         try {
+    //             setLoading(true);
 
+    //             const userId: string = JSON.parse(sessionStorage.getItem("userInfo") as string).userId;
+    //             const cartResponse = await getCart();
+    //             const cartData = cartResponse.data;
 
+    //             setCartData(cartData);
+    //             setProductsInCart(cartData);
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.log(error);
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchCartData();
+    // }, [setCartData, setLoading]);
+
+    // useEffect(() => {
+    //     const updateQuantities = () => {
+    //         const quantities: Quantity = {};
+    //         productsInCart.forEach((product: Product) => {
+    //             if (product._id) {
+    //                 quantities[product._id] = product.quantity || 0;
+    //             }
+    //         });
+    //         setQuantity(quantities);
+    //     };
+
+    //     updateQuantities();
+    // }, [productsInCart, setQuantity]);
 
     useEffect(() => {
         let quantites: Quantity = {};
@@ -58,15 +90,14 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
             }
         });
         setQuantity(quantites);
-    }, [productsInCart])
-
-
+    }, [productsInCart, setQuantity])
 
     let handleAddToCart = (product: Product) => {
         addToCart(product)
             .then((res) => {
                 handleIncrement(product._id)
-                addedToCartMsg(` ${product.name} added to cart`);
+                // setProductsChanged(prevState => !prevState)
+                // addedToCartMsg(` ${product.name} added to cart`);
             })
             .catch((err) => console.log(err))
     }
@@ -77,8 +108,9 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
         }
     };
     let handleDecrement = (productId?: string) => {
-        if (productId && quantity[productId] && quantity[productId] > 1) {
+        if (productId && quantity[productId] && quantity[productId] > 0) {
             let updatedQuantity = quantity[productId] - 1;
+            if (updatedQuantity === 0) handleRemoveFromCart(productId)
             setQuantity({ ...quantity, [productId]: updatedQuantity });
 
         }
@@ -88,7 +120,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
         reduceFromCart(product)
             .then((res) => {
                 handleDecrement(product._id)
-                addedToCartMsg(` ${product.name} removed from cart`);
+                // addedToCartMsg(` ${product.name} removed from cart`);
             })
             .catch((err) => console.log(err))
     }
@@ -101,6 +133,9 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                     getCart()
                         .then((res) => {
                             setProductsInCart(res.data);
+                            let updatedQuantity = { ...quantity };
+                            delete updatedQuantity[productId]
+                            setQuantity(updatedQuantity)
                             // setProductsInCart(res.data);
                         })
                         .catch((err) => console.log(err))

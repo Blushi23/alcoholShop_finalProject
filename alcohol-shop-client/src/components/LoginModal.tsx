@@ -17,7 +17,7 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
     let theme = useContext(siteTheme);
 
     // useEffect(() => {
-    //     if (show) setKey('login');
+    // if (show) setKey('login');
     // }, [show]);
 
     return (
@@ -56,10 +56,10 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
 
                         <Tab eventKey="guest" title="Continue as a guest" >
                             <div className="container text-center">
-                                <button type="button" className="btn w-75 btn-dark my-3"
+                                <button type="button" className="btn w-75 register-btn my-3"
                                     onClick={() => setKey('register')}
                                 >I want to register</button>
-                                <button type="submit" className="btn w-75 btn-warning my-3" onClick={() => onHide()}>Continue as a guest</button>
+                                <button type="submit" className="btn w-75 guest-btn my-3" onClick={() => onHide()}>Continue as a guest</button>
 
                             </div>
                         </Tab>

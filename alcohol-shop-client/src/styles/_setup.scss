@@ -1,45 +1,68 @@
 :root {
-    --background-color: #FDFEEE;
+    --background-color: rgb(252, 252, 233);
+    --modal-background: #f2f2f2;
+    --form-control: #fff;
     /* --background-image: url(/public/images/lightBg.jpg); */
     --text: #020202;
     --paging-background: var(--white);
     --paging-active: #ffc0cb;
+    --button: #f9c2c2;
+    --disabled-button: #efd4d4;
+    --button-hover: #fc92a2;
+    --guest-btn: #e2b1df;
+    --guest-btn-hover: #922e8b;
     --link-hover: #626262;
     --error-message-background: #ffffff96;
-    --orange: #ff8d06;
-    --yellow: #f8aa1d;
-    --blue: #000072;
-    --light-purple: #b199c5;
-    --dark-purple: #3c0b64;
-    --pink: #ff67a0;
-    --redish: #e74a63;
+    --errorMsg: #ca2311;
+    --tabs: rgb(161, 15, 139);
+    // --orange: #ff8d06;
+    // --yellow: #f8aa1d;
+    // --blue: #000072;
+    // --light-purple: #b199c5;
+    // --dark-purple: #3c0b64;
+    // --pink: #ff67a0;
+    // --redish: #e74a63;
     --white: #ffffff;
     --black: #000000;
     --title-font: "agbalumo";
+    --small-title: "salsa";
+    --text-font: "roboto condensed";
 }
 
 .dark {
-    --background-color: #18533B;
+    --background-color: #171717;
+    --modal-background: #363636;
+    --form-control: #646464;
     /* --background-image: url(/public/images/darkBg.jpg); */
     --error-message-background: transparent;
     --text: #f2f2f2;
     --paging-background: #020202;
-    --paging-active: var(--redish);
-    --link-hover: #afafaf;
-    --orange: #ff8d06;
-    --yellow: #f8aa1d;
-    --blue: #000072;
-    --light-purple: #b199c5;
-    --dark-purple: #3c0b64;
-    --pink: #ff67a0;
-    --redish: #e74a63;
+    --paging-active: #e74a63;
+    --button: rgb(161, 15, 24);
+    --button-hover: rgb(224, 28, 41);
+    --guest-btn: rgb(161, 15, 139);
+    --guest-btn-hover: #4a0446;
+    --errorMsg: #ca2311;
+    --tabs: #e2b1df;
+    // --link-hover: #afafaf;
+    // --orange: #ff8d06;
+    // --yellow: #f8aa1d;
+    // --blue: #000072;
+    // --light-purple: #b199c5;
+    // --dark-purple: #3c0b64;
+    // --pink: #ff67a0;
+    // --redish: #e74a63;
     --white: #ffffff;
     --black: #000000;
     --title-font: "agbalumo";
+    --small-title: "salsa";
+    --text-font: "roboto condensed";
+
 }
 
 .App {
     background: var(--background-color);
+
     /* background-image: var(--background-image); */
 
 }
