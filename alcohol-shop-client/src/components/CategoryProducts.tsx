@@ -15,8 +15,8 @@ interface CategoryProductsProps {
     userInfo: any;
     categoryProducts: Product[];
     setCategoryProducts: Function;
-    inputSearch: string;
-    setInputSearch: Function;
+    // inputSearch: string;
+    // setInputSearch: Function;
     loading: any;
     setLoading: Function;
     searchQuery: any
@@ -29,7 +29,7 @@ interface CategoryProductsProps {
 type Quantity = { [key: string]: number };
 
 
-const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryProducts, setCategoryProducts, userInfo, inputSearch, setInputSearch, loading, setLoading, searchQuery, setSearchQuery, setShow, show }) => {
+const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryProducts, setCategoryProducts, userInfo, loading, setLoading, searchQuery, setSearchQuery, setShow, show }) => {
     let theme = useContext(siteTheme);
     let darkMode = theme === "dark";
     let navigate = useNavigate();
@@ -43,6 +43,20 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
     let [selectedOrigins, setSelectedOrigins] = useState<string[]>([])
     let [selectedAlcohol, setSelectedAlcohol] = useState<string[]>([])
     let [selectedPrice, setSelectedPrice] = useState<number[]>([])
+    console.log(`selectedVolumes-${selectedVolumes},selectedOrigins-${selectedOrigins}, selectedAlcohol-${selectedAlcohol} `);
+
+    let filteredProducts = useMemo(() => {
+        let filtered = categoryProducts.filter((product: Product) => {
+            if (selectedVolumes.length > 0 && !selectedVolumes.includes(product.volume!)) return false;
+            if (selectedOrigins.length > 0 && !selectedOrigins.includes(product.origin!)) return false;
+            if (selectedAlcohol.length > 0 && !selectedAlcohol.includes(product.alcoholPercentage!)) return false;
+            // if (selectedPrice.length > 0 && !setSelectedPrice.includes(product.price!)) return false;
+            return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+        })
+        return filtered
+    }, [categoryProducts, searchQuery, selectedAlcohol, selectedOrigins, /*selectedPrice,*/ selectedVolumes])
+
+
 
     let [currentPage, setCurrentPage] = useState(0);
     let [totalPages, setTotalPages] = useState(0);
@@ -52,6 +66,28 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
     let handleClose = () => setShow(false);
     let handleShow = () => setShow(true);
+
+    // let filteredProducts = categoryProducts.filter((product: Product) => {
+    //     let query = searchQuery && typeof searchQuery === "string" ? searchQuery.toLowerCase() : '';
+    //     let productName = product.name.toLowerCase();
+    //     let productVolume = (product.volume || '').toString().toLowerCase();
+    //     let productAlcohol = (product.alcoholPercentage || "").toLowerCase();
+    //     let productPrice = product.price.toString().toLowerCase()
+
+    //     return (
+    //         query &&
+    //         (productName.includes(query) ||
+    //             productVolume.includes(query) ||
+    //             productAlcohol.includes(query) ||
+    //             productPrice.includes(query))
+    //     );
+    // })
+
+    // let filteredProducts = categoryProducts.filter((product: Product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
+
+    useEffect(() => {
+        setCurrentPage(0)
+    }, [searchQuery])
 
     useEffect(() => {
         if (category && subcategory) {
@@ -100,8 +136,8 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
     let startIndex = currentPage * itemsPerPage;
     let endIndex = startIndex + itemsPerPage;
-    let subset = data.slice(startIndex, endIndex);
-    // let subset = filteredProducts.slice(startIndex, endIndex);
+    // let subset = data.slice(startIndex, endIndex);
+    let subset = filteredProducts.slice(startIndex, endIndex);
 
     let handlePaginationClick = (pageNumber: number) => { setCurrentPage(pageNumber - 1) };
 
@@ -118,8 +154,6 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
     // let filteredProducts = categoryProducts.filter((product: Product) => selectedVolumes.length === 0 ? true : selectedVolumes.includes(product.volume!))
 
-    let filteredProducts = categoryProducts.filter((product: Product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
-
 
 
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
@@ -127,6 +161,23 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
     // let addToFavorites = favorites ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
     let addToFavorites = darkMode ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
+
+    let [volumeOptions, setVolumeOptions] = useState<number[]>([])
+    let [originOptions, setOriginOptions] = useState<string[]>([])
+    let [alcoholOptions, setAlcoholOptions] = useState<string[]>([])
+    let [priceOptions, setPriceOptions] = useState<number[]>([])
+    let products = categoryProducts
+    useEffect(() => {
+
+        const uniqueVolumes = Array.from(new Set(products.map((product: Product) => product.volume))).filter((volume) => volume !== undefined) as number[];
+        const uniqueOrigins = Array.from(new Set(products.map((product: Product) => product.origin))).filter((origin) => origin) as string[];
+        const uniqueAlcohol = Array.from(new Set(products.map((product: Product) => product.alcoholPercentage))).filter((alcoholPercentage) => alcoholPercentage) as string[];
+        const uniquePrice = Array.from(new Set(products.map((product: Product) => product.price))).filter((price) => price !== undefined) as number[];
+        setVolumeOptions(uniqueVolumes);
+        setOriginOptions(uniqueOrigins);
+        setAlcoholOptions(uniqueAlcohol);
+        setPriceOptions(uniquePrice);
+    }, [products]);
 
     return (
         <div className={`${theme}`}>
@@ -139,7 +190,11 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                     <button className="btn sort"><i className="fa-solid fa-sort"></i> Sort</button>
 
                     <button className="btn view" onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}><i className="fa-solid fa-table-cells-large"></i> | <i className="fa-solid fa-list"></i></button>
-                    <Filter setSearchQuery={setSearchQuery} categoryProducts={categoryProducts} handleClose={handleClose} show={show} setShow={setShow} setSelectedVolumes={setSelectedVolumes} selectedVolumes={selectedVolumes} setSelectedOrigins={setSelectedOrigins} selectedOrigins={selectedOrigins} setSelectedAlcohol={setSelectedAlcohol} selectedAlcohol={selectedAlcohol} setSelectedPrice={setSelectedPrice} selectedPrice={selectedPrice} />
+                    <Filter show={show} setShow={setShow} handleClose={handleClose} categoryProducts={categoryProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} setSelectedVolumes={setSelectedVolumes} selectedVolumes={selectedVolumes} setSelectedOrigins={setSelectedOrigins} setSelectedAlcohol={setSelectedAlcohol} setSelectedPrice={setSelectedPrice} volumeOptions={volumeOptions} setVolumeOptions={setVolumeOptions} originOptions={originOptions} setOriginOptions={setOriginOptions} alcoholOptions={alcoholOptions} setAlcoholOptions={setAlcoholOptions} priceOptions={priceOptions} setPriceOptions={setPriceOptions} />
+
+                    {/* <Filter setSearchQuery={setSearchQuery} categoryProducts={categoryProducts} handleClose={handleClose} show={show} setShow={setShow}
+                      setSelectedVolumes={setSelectedVolumes} selectedVolumes={selectedVolumes} setSelectedOrigins={setSelectedOrigins} selectedOrigins={selectedOrigins} setSelectedAlcohol={setSelectedAlcohol} selectedAlcohol={selectedAlcohol} setSelectedPrice={setSelectedPrice} selectedPrice={selectedPrice} 
+                    /> */}
                 </div>
                 {/* <div className="col"><Search products={products} setSearchQuery={setSearchQuery} /></div> */}
 
@@ -154,7 +209,7 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
 
 
 
-            {loading ? (<Loading />) : (filteredProducts.length > 0 ? (<>
+            {loading ? (<Loading />) : (categoryProducts.length > 0 ? (<>
                 {viewMode === 'cards' && (
                     <div className="container">
                         <div className="row card-container">

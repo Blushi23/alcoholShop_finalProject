@@ -5,7 +5,7 @@ import { addedToCartMsg, successMsg } from "../services/feedbackService";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../services/productsService";
 import { currencyFormat } from "../services/CurrencyFormat";
-import DeliveryDetails from "./DeliveryDetails";
+// import DeliveryDetails from "./DeliveryDetails";
 import { userInfo } from "os";
 import Delivery from "./Delivery";
 // import { createOrder } from "../services/ordersService";

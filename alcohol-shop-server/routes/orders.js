@@ -21,7 +21,7 @@ const orderSchema = joi.object({
     lastName: joi.string().required(),
     email: joi.string().required().email(),
     phone: joi.string().required(),
-    deliveryInstructions: joi.string(),
+    deliveryInstructions: joi.string().allow(""),
     // products: joi.array().required(),
     // totalPrice: joi.number().required()
 

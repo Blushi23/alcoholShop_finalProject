@@ -45,12 +45,27 @@ router.get("/", async (req, res) => {
     try {
         const products = await Product.find();
         if (!products) return res.status(404).send("No products found");
+
+
+
         res.status(200).send(products)
 
     } catch (error) {
         res.status(400).send(error);
     }
 })
+// router.get("/", async (req, res) => {
+//     try {
+//         const products = await Product.find();
+//         if (!products) return res.status(404).send("No products found");
+//         res.status(200).send(products)
+
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// })
+
+
 
 // Get all products from the same category
 router.get("/:category", async (req, res) => {

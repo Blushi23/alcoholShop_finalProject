@@ -55,7 +55,8 @@ const orderSchema = new mongoose.Schema({
         required: true
     },
     deliveryInstructions: {
-        type: String
+        type: String,
+        default: ""
     },
     // products: {
     //     type: Array,

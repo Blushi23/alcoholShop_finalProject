@@ -78,9 +78,6 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
 
     let handlePaginationClick = (pageNumber: number) => { setCurrentPage(pageNumber - 1) };
 
-    // let filteredProducts = products.filter((product: Product) =>
-    //     product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
 
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
 
@@ -88,7 +85,6 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
         <div className={`${theme}`}>
             <div className="managment-search">
                 <ProductsManagmentSearch products={products} setSearchQuery={setSearchQuery} />
-                {/* Rest of your Products Management UI... */}
             </div>
             <h2 className="text-center">Products Managment</h2>
             {(userInfo.isAdmin === true) && (
@@ -124,7 +120,6 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                                     </div>
                                 </div>
                             </div>
-
                         ))}
                     </div>
 
@@ -135,7 +130,7 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                             {Array.from({
                                 length: searchQuery ? filteredTotalPages : totalPages
                             }, (_, index) => (
-                                // {Array.from({ length: totalPages }, (_, index) => (
+
                                 <Pagination.Item
                                     key={index + 1}
                                     active={index === currentPage}
@@ -144,9 +139,8 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                                 </Pagination.Item>
                             ))}
                             <Pagination.Next onClick={() => currentPage < (searchQuery ? filteredTotalPages - 1 : totalPages - 1) && handlePaginationClick(currentPage + 2)} disabled={currentPage === (searchQuery ? filteredTotalPages - 1 : totalPages - 1)} />
-                            {/* <Pagination.Next onClick={() => currentPage < totalPages - 1 && handlePaginationClick(currentPage + 2)} disabled={currentPage === totalPages - 1} /> */}
+
                             <Pagination.Last onClick={() => handlePaginationClick(searchQuery ? filteredTotalPages : totalPages)} />
-                            {/* <Pagination.Last onClick={() => handlePaginationClick(totalPages)} /> */}
                         </Pagination>
                     </div>
 

@@ -7,36 +7,14 @@ interface ProductsManagmentSearchProps {
 }
 
 const ProductsManagmentSearch: FunctionComponent<ProductsManagmentSearchProps> = ({ products, setSearchQuery }) => {
-    // let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
 
-    // useEffect(() => {
-    //     let search = async () => {
-    //         try {
-    //             if (!key.trim()) {
-    //                 setSearchRes([]);
-    //                 return;
-    //             }
-    //             let searchProducts = products.filter((product: Product) =>
-    //                 product.name.toLowerCase().includes(key.toLowerCase())
-    //             );
-    //             setSearchRes(searchProducts);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //     search();
-    // }, [key, products]);
-
     useEffect(() => {
-        // Filter and update searchQuery state in the parent component
         setSearchQuery(key);
     }, [key, setSearchQuery]);
 
-
     let handleClose = () => {
         setKey("");
-        // setSearchRes([]);
     };
 
     return (
@@ -50,7 +28,6 @@ const ProductsManagmentSearch: FunctionComponent<ProductsManagmentSearchProps> =
                         value={key}
                         onChange={(e) =>
                             setKey(e.target.value)
-                            // setSearchQuery(e.target.value);
                         }
                     />
                     {key && (
@@ -60,19 +37,7 @@ const ProductsManagmentSearch: FunctionComponent<ProductsManagmentSearchProps> =
                     )}
                 </div>
 
-                {/* {searchRes && searchRes.length > 0 && (
-                    <div className="search-result">
-                        {searchRes.map((product: Product) => (
-                            <div
-                                className="result-item"
-                                key={product._id}
-                           
-                            >
-                              
-                            </div>
-                        ))}
-                    </div>
-                )} */}
+
             </form>        </>
     )
 }
