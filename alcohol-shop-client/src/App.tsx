@@ -28,6 +28,7 @@ import SearchResults from './components/SearchResults';
 import ProductsManagmentSearch from './components/ProductsManagmentSearch';
 import DeliveryDetails from './components/DeliveryDetails';
 import { updateCart } from './services/cartService';
+import Delivery from './components/Delivery';
 
 
 let theme = {
@@ -59,7 +60,6 @@ function App() {
   // }
 
   //Products & Carts
-  // let [products, setProducts] = useState<Product[]>([]);
 
   type Quantity = { [key: string]: number };
   let initialQuantity = localStorage.getItem('quantity') ? JSON.parse(localStorage.getItem('quantity')!) : {};
@@ -87,6 +87,7 @@ function App() {
   let [openAgeModal, setOpenAgeModal] = useState<boolean>(false);
   let [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
   let [openContactModal, setOpenContactModal] = useState<boolean>(false);
+  let [show, setShow] = useState<boolean>(false)
 
   useEffect(() => {
     setOpenAgeModal(true)
@@ -123,16 +124,16 @@ function App() {
               <Route path='/products-managment' element={<ProductsManagment products={allProducts} setProducts={setAllProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} />
               <Route path='/new-product' element={<NewProduct />} />
               <Route path='/edit-product/:id' element={<EditProduct />} />
-              <Route path='/products/:category/:subcategory/:id' element={<ProductPage products={categoryProducts} setProducts={setCategoryProducts} />} />
-              <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
-              <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
-              <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} />} />
+              <Route path='/products/:category/:subcategory/:id' element={<ProductPage products={categoryProducts} setProducts={setCategoryProducts} userInfo={userInfo} />} />
+              <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
+              <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
+              <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} inputSearch={inputSearch} setInputSearch={setInputSearch} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
               <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} userInfo={userInfo} cartData={cartData} setCartData={setCartData} />} />
-              <Route path='/searching' element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} /*updateCart={updateCart}*/ />} />
+              <Route element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} /*updateCart={updateCart}*/ />} />
               <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
               <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} />} />
-              <Route path='/delivery' element={<DeliveryDetails userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} cartData={cartData} />} />
-
+              {/* <Route path='/delivery' element={<DeliveryDetails userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} cartData={cartData} user={user} setUser={setUser} />} /> */}
+              <Route path="/delivery" element={<Delivery user={user} setUser={setUser} userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} />} />
 
               {/* <Route path='/payment' element={<Payment holderName='' cardNumber='' expiration='' cvc='' focus='' />} /> */}
 

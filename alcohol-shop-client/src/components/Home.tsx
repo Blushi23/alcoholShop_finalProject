@@ -37,7 +37,8 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
     let [beerProducts, setBeerProducts] = useState([]);
     let [wineProducts, setWineProducts] = useState([]);
 
-
+    // let addToFavorites = favorites ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
+    let addToFavorites = darkMode ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
     useEffect(() => {
         setLoading(true)
         let showProducts = async () => {
@@ -76,7 +77,7 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                 <AgeConfirmation show={openAgeModal} onHide={handleCloseAgeModal} />
             )}
 
-            <div className="container">
+            <div className="home-container">
                 <img className="homeBanner img-fluid mt-3 mb-5" src="/images/homeBanner.png" alt="banner" />
 
                 <div className="categoryLine">
@@ -88,29 +89,36 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                 <div
                                     key={product._id}
                                     className="card col-md-3 mt-3 align-items-center m-2 ms-2"
-                                    style={{ width: "16rem", height: "28rem" }}
-                                    onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)}>
-
+                                    style={{ width: "16rem", height: "28rem" }}>
                                     <img src={product.image ? product.image : noImg}
                                         alt={product.name}
                                         style={{ height: "13rem" }}
-                                        className="mt-2"
-                                    />
+                                        className="mt-2 product-img"
+                                        onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)} />
                                     <div className="card-body">
                                         <h5 className="card-title">{product.name}</h5>
-                                        <p>Volume: {product.volume} ml</p>
-                                        <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                        <p className="card-text">Volume: {product.volume} ml</p>
+                                        <hr className="mt-0" />
+                                        <p className="card-text price">Price: {product.price} &#8362;</p>
+
+                                        {userInfo.isAdmin === false && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                                <div className="heart-icon">{addToFavorites}</div>
+                                            </div>)}
+                                        {userInfo.isAdmin && (
+                                            <div className="products-addToCart-container">
+                                                <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
+                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )))}
-
-
                         </div>
                     </div>
-                    <button className="btn btn-outline-dark categoryTransfer w-25 my-4" onClick={() => navigate('/products/alcohol')}>Find more products</button>
+                    <button className="btn categoryTransfer  my-4" onClick={() => navigate('/products/alcohol')}>Find more products</button>
                 </div>
-
                 <div className="categoryLine">
                     <img src={beerLine} style={{ width: "50rem" }} className="img-fluid" alt="beers" onClick={() => navigate('/products/beer')} />
 
@@ -120,24 +128,37 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                 <div
                                     key={product._id}
                                     className="card col-md-3 mt-3 align-items-center m-2 ms-2"
-                                    style={{ width: "16rem", height: "28rem" }}
-                                    onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)}>
+                                    style={{ width: "16rem", height: "28rem" }}>
                                     <img src={product.image ? product.image : noImg}
                                         alt={product.name}
                                         style={{ height: "13rem" }}
-                                        className="mt-2" />
+                                        className="mt-2 product-img"
+                                        onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)} />
                                     <div className="card-body">
                                         <h5 className="card-title">{product.name}</h5>
-                                        <p>Volume: {product.volume} ml</p>
-                                        <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                        <p className="card-text">Volume: {product.volume} ml</p>
+                                        <hr className="mt-0" />
+                                        <p className="card-text price">Price: {product.price} &#8362;</p>
+
+                                        {userInfo.isAdmin === false && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                                <div className="heart-icon">{addToFavorites}</div>
+                                            </div>
+                                        )}
+                                        {userInfo.isAdmin && (
+                                            <div className="products-addToCart-container">
+                                                <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
+                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )))}
                         </div>
                     </div>
 
-                    <button className="btn btn-outline-dark categoryTransfer w-25 my-4" onClick={() => navigate('/products/beer')}>Find more products</button>
+                    <button className="btn categoryTransfer my-4" onClick={() => navigate('/products/beer')}>Find more products</button>
                 </div>
                 <div className="categoryLine">
                     <img src={wineLine} style={{ width: "50rem" }} className="img-fluid" alt="wines" onClick={() => navigate('/products/wine')} />
@@ -153,23 +174,35 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                     <img src={product.image ? product.image : noImg}
                                         alt={product.name}
                                         style={{ height: "13rem" }}
-                                        className="mt-2"
+                                        className="mt-2 product-img"
                                         onClick={() => navigate(`/products/${product.category}/${product.subcategory}/${product._id}`)} />
                                     <div className="card-body">
                                         <h5 className="card-title">{product.name}</h5>
-                                        <p>Volume: {product.volume} ml</p>
-                                        <p className="card-text">Price: {product.price} &#8362;</p>
-                                        <button className="btn btn-info align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                        <p className="card-text">Volume: {product.volume} ml</p>
+                                        <hr className="mt-0" />
+                                        <p className="card-text price">Price: {product.price} &#8362;</p>
+
+                                        {userInfo.isAdmin === false && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                                <div className="heart-icon">{addToFavorites}</div>
+                                            </div>
+                                        )}
+                                        {userInfo.isAdmin && (
+                                            <div className="products-addToCart-container">
+                                                <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
+                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+                                            </div>
+                                        )}
+
                                     </div>
                                 </div>
+                                // </div>
                             )))}
-
-
-
                         </div>
                     </div>
 
-                    <button className="btn btn-outline-dark categoryTransfer w-25 my-4" onClick={() => navigate('/products/wine')}>Find more products</button>
+                    <button className="btn categoryTransfer my-4" onClick={() => navigate('/products/wine')}>Find more products</button>
                 </div>
             </div >
         </>

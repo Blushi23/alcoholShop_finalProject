@@ -24,13 +24,6 @@ export function getProductBySubCategory(category: string, subcategory: string) {
     return axios.get(`${api}/${category}/${subcategory}`, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
 
-// export function getSubcategoriesByCategory(category: string) {
-//     const token = sessionStorage.getItem("token");
-//     if (!token) return axios.get(`${api}/subcategories/${category}`);
-//     return axios.get(`${api}/subcategories/${category}`, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
-// }
-
-
 export function addProduct(newProduct: Product) {
     return axios.post(api, newProduct, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
@@ -43,14 +36,6 @@ export function deleteProduct(id: string) {
     return axios.delete(`${api}/${id}`, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
 
-// export async function searchProduct(key: string) {
-//     try {
-//         let response = await axios.get(`${api}/Search`, { params: { key, limit: 5 } })
-//         return response.data;
-
-//     } catch (error) {
-//         console.log(error);
-//         return [];
 //     }
 export async function searchProduct(key: string, products: Product[]) {
     try {
@@ -62,5 +47,4 @@ export async function searchProduct(key: string, products: Product[]) {
 
     }
 
-    //     return axios.get(`${api}/search`, { params: { key: { key }, limit: 5 } })
 }

@@ -54,7 +54,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
 
                     <div className="search-bar-locator">
-                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData}/*updateCart={updateCart}*/ />) : (
+                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo}/*updateCart={updateCart}*/ />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
                                 if (setSearchBarOpen && searchQuery.trim() !== "") {
                                     navigate(`/search/${searchQuery}`);

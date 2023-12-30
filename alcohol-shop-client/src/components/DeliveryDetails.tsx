@@ -6,7 +6,7 @@ import { getUserById } from "../services/usersService";
 import User from "../interfaces/User";
 import { useNavigate, useParams } from "react-router-dom";
 import { siteTheme } from "../App";
-import { addOrder, createOrder } from "../services/ordersService";
+import { addOrder } from "../services/ordersService";
 import Order from "../interfaces/Order";
 
 interface DeliveryDetailsProps {
@@ -14,12 +14,17 @@ interface DeliveryDetailsProps {
     setOpenPaymentModal: Function;
     userInfo: any;
     cartData: any;
+    user: User;
+    setUser: Function;
 }
 
-const DeliveryDetails: FunctionComponent<DeliveryDetailsProps> = ({ openPaymentModal, setOpenPaymentModal, userInfo, cartData, }) => {
+const DeliveryDetails: FunctionComponent<DeliveryDetailsProps> = ({ openPaymentModal, setOpenPaymentModal, userInfo, cartData, user, setUser }) => {
 
     let [isRegistered, setIsRegistered] = useState(false);
-    let [user, setUser] = useState<User>();
+    // let [userOrder, setUserOrder] = useState<Order>({
+    // let [user, setUser] = useState<User>({
+    // firstName: "", lastName: "", email: "", phone: "", country: "", city: "", street: "", houseNumber: 0, floor: 0 as number, apartment: 0 as number, zip: ""
+    // });
     let { id } = useParams()
     let userId = id ? id : userInfo.userId;
     let navigate = useNavigate();
@@ -62,19 +67,20 @@ const DeliveryDetails: FunctionComponent<DeliveryDetailsProps> = ({ openPaymentM
     let formik = useFormik({
         initialValues: {
             contactDetails: {
-                firstName: isRegistered ? user?.firstName : "",
-                lastName: isRegistered ? user?.lastName : "",
-                email: isRegistered ? user?.email : "",
-                phone: isRegistered ? user?.phone : "",
+                firstName: user.firstName,
+                // firstName: user.firstName || "",
+                lastName: user.lastName || "",
+                email: user.email || "",
+                phone: user.phone || "",
             },
             deliveryAddress: {
-                country: isRegistered ? user?.country : "",
-                city: isRegistered ? user?.city : "",
-                street: isRegistered ? user?.street : "",
-                houseNumber: isRegistered ? user?.houseNumber : 0,
-                floor: isRegistered ? user?.floor : "",
-                apartment: isRegistered ? user?.apartment : "",
-                zip: isRegistered ? user?.zip : "",
+                country: user.country || "",
+                city: user.city || "",
+                street: user.street || "",
+                houseNumber: user.houseNumber || 0,
+                floor: user.floor || "",
+                apartment: user.apartment || "",
+                zip: user.zip || "",
             },
             deliveryInstructions: "",
         },
@@ -94,7 +100,7 @@ const DeliveryDetails: FunctionComponent<DeliveryDetailsProps> = ({ openPaymentM
 
                 let newOrder = await addOrder(orderData as Order);
                 if (newOrder) {
-                    createOrder(newOrder.data); setOpenPaymentModal(true)
+                    // createOrder(newOrder.data); setOpenPaymentModal(true)
                 }
                 else {
                     console.log("there is an error creating the order")
@@ -110,7 +116,7 @@ const DeliveryDetails: FunctionComponent<DeliveryDetailsProps> = ({ openPaymentM
     return (
         <div className="container">
             <h3>Delivery Adress</h3>
-            <form onSubmit={formik.handleSubmit}>
+            <form className="mb-3" onSubmit={formik.handleSubmit}>
                 <div className="row">
                     <div className="col">
                         <div className="form-floating mb-3">

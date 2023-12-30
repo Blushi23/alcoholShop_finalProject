@@ -1,6 +1,7 @@
 :root {
     --background-color: rgb(252, 252, 233);
     --modal-background: #f2f2f2;
+    --card-background: #fff;
     --form-control: #fff;
     /* --background-image: url(/public/images/lightBg.jpg); */
     --text: #020202;
@@ -15,6 +16,9 @@
     --error-message-background: #ffffff96;
     --errorMsg: #ca2311;
     --tabs: rgb(161, 15, 139);
+    --cards-shadow: 5px 5px 7px #77344d;
+    --card-border: #77344d;
+    --product-shadow: drop-shadow(8px 7px 8px #77344d);
     // --orange: #ff8d06;
     // --yellow: #f8aa1d;
     // --blue: #000072;
@@ -32,6 +36,7 @@
 .dark {
     --background-color: #171717;
     --modal-background: #363636;
+    --card-background: #101720;
     --form-control: #646464;
     /* --background-image: url(/public/images/darkBg.jpg); */
     --error-message-background: transparent;
@@ -43,7 +48,11 @@
     --guest-btn: rgb(161, 15, 139);
     --guest-btn-hover: #4a0446;
     --errorMsg: #ca2311;
+    --disabled-button: #9b05058c;
     --tabs: #e2b1df;
+    --cards-shadow: 5px 5px 8px #f1c0d2;
+    --card-border: #f1c0d2;
+    --product-shadow: drop-shadow(8px 7px 8px #f1c0d2);
     // --link-hover: #afafaf;
     // --orange: #ff8d06;
     // --yellow: #f8aa1d;

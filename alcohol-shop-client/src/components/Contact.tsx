@@ -13,25 +13,21 @@ interface ContactProps {
 
 const Contact: FunctionComponent<ContactProps> = ({ show, onHide }) => {
     let theme = useContext(siteTheme);
-    let darkMode = theme === "dark";
-
-    // let closeButtonColor = { color: darkMode ? "white" : "dark" }
 
     let formik = useFormik({
         initialValues: { name: "", email: "", phone: "", message: "" },
         validationSchema: yup.object({
             name: yup.string().required("Please fill your full name").min(2),
-            email: yup.string().email(),
+            email: yup.string().required("Enter valid email address").email(),
             phone: yup.string().required("Phone number must have at least 9 characters").min(9).matches(/^[0-9]+$/, "phone must have numbers only"),
             message: yup.string()
         }),
         onSubmit: (values) => {
-            console.log(values);
-            successMsg("The message sent! Thank you!")
+            successMsg("Thank you! your mail has been sent.")
+            formik.resetForm();
             onHide()
-
-        }
-    })
+        },
+    });
     return (
         <>
             <Modal show={show} onHide={() => onHide()}
@@ -40,7 +36,7 @@ const Contact: FunctionComponent<ContactProps> = ({ show, onHide }) => {
                 className={`${theme}`}>
                 <div className="modal-contact-content">
 
-                    <ModalHeader className="contact-title" closeButton>
+                    <ModalHeader className="contact-title" closeButton data-bs-theme={`${theme}`}>
                         <Modal.Title>Contact Us</Modal.Title>
                     </ModalHeader>
                     <Modal.Body>
@@ -68,6 +64,7 @@ const Contact: FunctionComponent<ContactProps> = ({ show, onHide }) => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur} />
                                     <label htmlFor="floatingInput">Email Adress *</label>
+                                    {formik.touched.email && formik.errors.email && (<small className="text-danger">{formik.errors.email}</small>)}
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input name="phone" type="text" className="form-control" id="phone" placeholder="050-0000000"

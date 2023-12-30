@@ -5,17 +5,19 @@ import { getProductById, getProducts } from "../services/productsService";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../services/cartService";
 import { addedToCartMsg } from "../services/feedbackService";
+import { userInfo } from "os";
 
 interface ProductPageProps {
     products: any;
     setProducts: Function;
+    userInfo: any;
     // loading: any;
     // setLoading: Function;
 
 
 }
 
-const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProducts }) => {
+const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProducts, userInfo }) => {
     let navigate = useNavigate();
     let { category, subcategory, id } = useParams();
     let [product, setProduct] = useState<Product>()
@@ -53,7 +55,8 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
                             <h2>{`${product.name}`}</h2>
                             <h5 className="mt-5">Price: {`${product.price}`} &#8362;</h5>
                             <p>Bottle volume: {`${product.volume}`} ml</p>
-                            <button className="btn" onClick={() => handleAddToCart(product!)}>Add To Cart</button>
+                            {userInfo.isAdmin === false && <button className="btn" onClick={() => handleAddToCart(product!)}>Add To Cart</button>}
+                            {userInfo.isAdmin && <button className="btn" disabled>Add To Cart</button>}
                         </div>
                         <div className="productDescription">
                             <h6 className="productDescTitle">Description:</h6>
