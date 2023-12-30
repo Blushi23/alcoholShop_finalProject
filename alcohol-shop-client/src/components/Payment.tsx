@@ -35,7 +35,7 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
             focus: yup.string()
         }),
         onSubmit: (values) => {
-            console.log(values);
+            alertMsg("Im sorry, I'm only student and this is my final project. I cant allow you to pay")
         }
     })
 
@@ -43,9 +43,7 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
         setFocus(e.target.name as Focused);
     };
 
-    let messagePopup = () => {
-        alertMsg("Im sorry, I'm only student and this is my final project. I cant allow you to pay")
-    }
+
 
 
     return (
@@ -120,7 +118,7 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
                                 </div>
                             </div >
                             <div className="d-flex justify-content-center align-items-center">
-                                <button className="btn btn-danger w-25" type="submit" disabled={!formik.isValid || !formik.dirty} onClick={() => messagePopup()}>Pay Now</button>
+                                <button className="btn btn-danger w-25" type="submit" disabled={!formik.isValid || !formik.dirty}>Pay Now</button>
                             </div>
                         </form>
                     </Modal.Body>

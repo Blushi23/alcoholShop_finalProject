@@ -6,9 +6,9 @@ import { DeliveryDetails } from "../interfaces/User";
 
 let api: string = `${process.env.REACT_APP_API}/orders`;
 
-export function createDeliveryAddress(detailsToAdd: DeliveryDetails) {
+export function createDeliveryAddress(userId: string, detailsToAdd: DeliveryDetails) {
     // let deliveryDetails = _.pick(detailsToAdd, ["_id", "firstName", "lastName", "email", "phone", "contry", "city", "street", "houseNumber", "floor", "apartment", "zip", "deliveryInstructions"]);
-    return axios.post(`/${api}`, detailsToAdd,
+    return axios.post(api, { userId, ...detailsToAdd },
         { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } }
     )
     // export function createOrder(userId: string, newOrder: Order) {

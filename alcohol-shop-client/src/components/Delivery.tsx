@@ -64,9 +64,12 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
             deliveryInstructions: yup.string()
         }),
         onSubmit: (values) => {
-            console.log(values);
-            createDeliveryAddress(values)
-                .then((res) => { successMsg("Delivery details recived"); setOpenPaymentModal(true) })
+            createDeliveryAddress(userId, values)
+                .then((res) => {
+                    successMsg("Delivery details recived"); setOpenPaymentModal(true);
+                    formik.resetForm()
+                })
+
                 .catch((err) => console.log(err)
                 )
         }
