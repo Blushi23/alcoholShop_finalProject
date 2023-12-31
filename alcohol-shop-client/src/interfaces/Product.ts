@@ -9,7 +9,5 @@ export default interface Product {
     category: string;
     subcategory: string;
     image?: string;
-    // imageUrl?: string;
-    // imageAlt?: string;
     quantity?: number;
 }

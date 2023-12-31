@@ -45,13 +45,11 @@
     align-items: center;
 }
 
-
 .paymentOptions img {
     width: 45px;
     margin-right: 10px;
 }
 
-/* Responsive Design */
 @media (min-width: 576px) {
     footer .col-sm-3 {
         flex: 0 0 25%;
@@ -68,7 +66,6 @@ img.footer-logo {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    /* Adjust as needed */
 }
 
 .footer-list>li button,
@@ -76,4 +73,9 @@ img.footer-logo {
     display: inline-block;
     padding: 0;
     margin: 0;
+}
+
+.fa-brands {
+    font-size: 30px;
+    color: var(--text);
 }

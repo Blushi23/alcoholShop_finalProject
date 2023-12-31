@@ -13,44 +13,16 @@ const orderSchema = joi.object({
     street: joi.string().required(),
     houseNumber: joi.number().required(),
     floor: joi.number(),
-    // floor: joi.string(),
     apartment: joi.number(),
-    // apartment: joi.string(),
     zip: joi.string().required(),
     firstName: joi.string().required(),
     lastName: joi.string().required(),
     email: joi.string().required().email(),
     phone: joi.string().required(),
     deliveryInstructions: joi.string().allow(""),
-    // products: joi.array().required(),
-    // totalPrice: joi.number().required()
-
 })
-// const orderSchema = joi.object({
-//     orderDate: joi.date().required(),
-//     deliveryAddress: {
-//         country: joi.string().required(),
-//         city: joi.string().required(),
-//         street: joi.string().required(),
-//         houseNumber: joi.number().required(),
-//         floor: joi.string(),
-//         apartment: joi.string(),
-//         zip: joi.string().required()
-//     },
-//     contactDetails: {
-//         firstName: joi.string().required(),
-//         lastName: joi.string().required(),
-//         email: joi.string().required().email(),
-//         phone: joi.string().required(),
-//     },
-//     deliveryInstructions: joi.string(),
-//     products: joi.array().required(),
-//     totalPrice: joi.number().required()
 
-// })
-
-// Create new order
-// Create new order
+//create new order
 router.post("/", auth, async (req, res) => {
     try {
         const { error } = orderSchema.validate(req.body);
@@ -71,8 +43,6 @@ router.post("/", auth, async (req, res) => {
 
     }
 });
-
-
 
 // Get all orders
 router.get("/", auth, async (req, res) => {

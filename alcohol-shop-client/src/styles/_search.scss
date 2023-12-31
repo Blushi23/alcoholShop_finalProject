@@ -92,7 +92,6 @@
 .second-line {
     display: flex;
     justify-content: space-between;
-    // justify-content: space-around;
     align-items: center;
     margin-top: auto;
     margin-top: 15px;
@@ -121,7 +120,6 @@
 @media (max-width:768px) {
     .search-result {
         grid-template-columns: 1fr;
-        // width: max-content;
         width: 100%;
         margin-left: 0;
     }

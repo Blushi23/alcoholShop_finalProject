@@ -1,9 +1,8 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { FunctionComponent, useContext } from "react";
 import { siteTheme } from "../App";
 import { Modal, ModalHeader } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { values } from "lodash";
 import { successMsg } from "../services/feedbackService";
 
 interface ContactProps {
@@ -35,7 +34,6 @@ const Contact: FunctionComponent<ContactProps> = ({ show, onHide }) => {
                 centered
                 className={`${theme}`}>
                 <div className="modal-contact-content">
-
                     <ModalHeader className="contact-title" closeButton data-bs-theme={`${theme}`}>
                         <Modal.Title>Contact Us</Modal.Title>
                     </ModalHeader>
@@ -85,11 +83,9 @@ const Contact: FunctionComponent<ContactProps> = ({ show, onHide }) => {
                                         onBlur={formik.handleBlur}
                                         style={{ minHeight: '3.5rem', resize: 'vertical', paddingLeft: "10px" }}
                                     />
-                                    <label style={{ marginLeft: "10px" }} htmlFor="description">  Message</label>
+                                    <label style={{ marginLeft: "5px" }} htmlFor="description">Message</label>
                                 </div>
-                                <button type="submit" className="btn contact-btn">
-                                    Send
-                                </button>
+                                <button type="submit" className="btn contact-btn">Send</button>
                             </form>
                         </div>
                     </Modal.Body>

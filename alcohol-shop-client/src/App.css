@@ -1,77 +1,3 @@
-:root {
-    --background-color: #ffffff;
-    /* --background-image: url(/public/images/lightBg.jpg); */
-    --text: #020202;
-    --link-hover: #626262;
-    --error-message-background: #ffffff96;
-    --orange: #ff8d06;
-    --yellow: #f8aa1d;
-    --blue: #000072;
-    --light-purple: #b199c5;
-    --dark-purple: #3c0b64;
-    --pink: #ff67a0;
-    --redish: #e74a63;
-    --white: #ffffff;
-    --black: #000000;
-}
-
-.dark {
-    --background-color: #000072;
-    /* --background-image: url(/public/images/darkBg.jpg); */
-    --error-message-background: transparent;
-    --text: #f2f2f2;
-    --link-hover: #afafaf;
-    --orange: #ff8d06;
-    --yellow: #f8aa1d;
-    --blue: #000072;
-    --light-purple: #b199c5;
-    --dark-purple: #3c0b64;
-    --pink: #ff67a0;
-    --redish: #e74a63;
-    --white: #ffffff;
-    --black: #000000;
-}
-
-.App {
-    background: var(--background-color);
-    /* background-image: var(--background-image); */
-}
-
-/* navbar */
-.navbar {
-    background-color: rgba(177, 153, 197, 0.3137254902);
-    box-shadow: 5px 5px 5px #bab7ab;
-}
-
-.logo {
-    width: 60px;
-    height: 80px;
-    /* margin-bottom: 10px; */
-}
-
-.navbar-brand {
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: "Comic Sans MS";
-}
-
-.darkModeButton {
-    cursor: pointer;
-}
-
-/* //////////////////////////////////////////////////////////////// */
-.navbar-dark .navbar-nav a.nav-link {
-    color: #ffffff;
-    font-size: 1.1em;
-}
-
-.dropdown-menu {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border: none;
-    border-radius: 0;
-    padding: 0.7em;
-}
-
 @media only screen and (min-width: 992px) {
     .dropdown:hover .dropdown-menu {
         display: flex;
@@ -163,10 +89,9 @@
     }
 }
 
-/* register and login */
-/* footer */
+
 .submit-btn {
-    /* background-color: var(--redish); */
+
     border-radius: 50px;
 }
 
@@ -250,5 +175,3 @@
     margin-top: 20px;
     margin-right: 20px;
 }
-
-/*# sourceMappingURL=App.css.map */

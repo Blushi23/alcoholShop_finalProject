@@ -1,7 +1,6 @@
 import { FunctionComponent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import User from "../interfaces/User";
-import { QuantityContext, siteTheme } from "../App";
+import { siteTheme } from "../App";
 import LoginModal from "./LoginModal";
 import Search from "./Search";
 import Product from "../interfaces/Product";
@@ -12,8 +11,6 @@ interface NavbarProps {
     setUserInfo: Function;
     darkMode: boolean;
     setDarkMode: Function;
-    user: User;
-    setUser: Function;
     openLoginModal: boolean;
     setOpenLoginModal: Function;
     products: Product[];
@@ -25,19 +22,14 @@ interface NavbarProps {
     setProductsChanged: Function;
     openAlertModal: boolean;
     setOpenAlertModal: Function;
-
 }
 
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, render, updateCartData, productsChanged, setProductsChanged, openAlertModal, setOpenAlertModal }) => {
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, render, updateCartData, productsChanged, setProductsChanged, openAlertModal, setOpenAlertModal }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
-    let quantityContext = useContext(QuantityContext);
-    let quantity = quantityContext ? quantityContext.quantity : {}
 
     let [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
-
-    let totalQuantity = Object.values(quantity).reduce((total: number, currentQuantity: any) => total + currentQuantity, 0);
 
     let logout = () => {
         sessionStorage.removeItem("userInfo");
@@ -53,7 +45,6 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                 <div className="container-fluid">
                     <Link className="navbar-brand fw-bold" to="/"><img className="logo" src="/images/cocktailLogo.png" alt="logo" />Liquor Land</Link>
 
-
                     <div className="search-bar-locator">
                         {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
@@ -64,11 +55,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             }}>
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </button>
-
                         )}
-
                     </div>
-
                     <button className="navbar-toggler" type="button"
                         data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="open-menu"><i className="fa-solid fa-bars"></i></span>

@@ -7,13 +7,10 @@ const router = express.Router()
 
 const productSchema = joi.object({
     name: joi.string().required().min(2),
-    // description: joi.string().required().min(2),
     category: joi.string().required().min(2),
-    // subcategory: joi.string().required().min(2),
     image: joi.string(),
     price: joi.number().required(),
     _id: joi.string()
-    //quantity:joi.unmber().required()
 })
 
 // add product to cart
@@ -42,7 +39,6 @@ router.post("/", auth, async (req, res) => {
     }
 })
 
-
 router.get("/", auth, async (req, res) => {
     try {
         let cart = await Cart.findOne({ userId: req.payload._id, active: true });
@@ -68,40 +64,12 @@ router.delete("/:id", auth, async (req, res) => {
     }
 })
 
-// Update quantity in cart
-// router.put("/:id", auth, async (req, res) => {
-//     try {
-//         let { id: userId } = req.payload;
-//         let { id: productId } = req.params;
-//         let { quantity } = req.body;
-
-//         //         let cart = await Cart.findOneAndUpdate({ userId, active: true, "products._id": productId }, { $set: { "products.$.quantity": quantity } }, { new: true });
-//         // let cart;
-//         // if (quantity === 0) {
-//         //     cart = await Cart.findOneAndUpdate({ userId, active: true }, { $pull: { products: { _id: productId } } }, { new: true });
-
-//         // } else {
-//         //     cart = await Cart.findOneAndUpdate({ userId, active: true, "products._id": productId },
-//         //         { $set: { "products.$.quantity": quantity } },
-//         //         { new: true });
-//         // }
-
-//         if (!cart) return res.status(404).send("Cart not found");
-
-//         res.status(200).send("Product quantity updated successfully");
-//     } catch (error) {
-//         res.status(400).send(error);
-
-//     }
-// })
-
 router.put("/:id", auth, async (req, res) => {
     try {
         const { id: userId } = req.payload;
         const { id: productId } = req.params;
 
         // Find the cart where the product exists
-        // const cart = await Cart.findOne({ userId, active: true, "products._id": productId });
         let cart = await Cart.findOne({ userId: req.payload._id, active: true })
 
         if (!cart) return res.status(404).send("Cart not found");

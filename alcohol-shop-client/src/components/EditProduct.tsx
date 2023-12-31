@@ -57,7 +57,6 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
     return (
         <>
             <div className="container ">
-
                 <form className="mb-3 edit-product" onSubmit={formik.handleSubmit}>
                     <h4 className="managment-title my-4">Edit product</h4>
                     <div className="row">
@@ -130,7 +129,6 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 disabled={!formik.values.category}>
-
                                 <option value="">Select subcategory</option>
                                 {dependedSubcategories(formik.values.category)?.map((subcategory) => (
                                     <option key={subcategory} value={subcategory}>{subcategory}</option>
@@ -169,7 +167,6 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                                     onBlur={formik.handleBlur}
                                     min="0" />
                                 <label htmlFor="volume">Volume (ml)</label>
-
                             </div>
                         </div>
                         <div className="col">
@@ -214,9 +211,8 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                         >Back</button>
                     </div>
                 </form >
-
-            </div >        </>
+            </div >
+        </>
     )
 }
-
 export default EditProduct;

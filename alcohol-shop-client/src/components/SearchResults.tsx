@@ -64,26 +64,21 @@ const SearchResults: FunctionComponent<SearchResultsProps> = ({ products, setPro
                                 <hr className="mt-0" />
                                 <p className="card-text price">Price: {currencyFormat(product.price)}</p>
 
-
                                 {!userInfo.email && (
                                     <div className="products-addToCart-container">
                                         <button className="btn addToCart-btn" onClick={() => setOpenAlertModal(true)}>Add to cart</button>
-
                                     </div>)}
 
                                 {userInfo.email && userInfo.isAdmin === false && (
                                     <div className="products-addToCart-container">
                                         <button className="btn addToCart-btn" onClick={() => handleAddToCart(product)}>Add to cart</button>
-
                                     </div>
                                 )}
                                 {userInfo.isAdmin && (
                                     <div className="products-addToCart-container">
                                         <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
-
                                     </div>
                                 )}
-
                             </div>
                         </div>
                     ))}

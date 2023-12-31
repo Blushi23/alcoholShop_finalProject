@@ -43,7 +43,6 @@ const Login: FunctionComponent<LoginProps> = ({ setUserInfo, onHide }) => {
         <>
             <div className="container col-md-12 text-center">
                 <form className="mb-3" onSubmit={formik.handleSubmit} >
-                    {/* <h2 className="title display-4">Login</h2> */}
                     <div className="form-floating mb-3">
                         <input name="email" type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
                             value={formik.values.email}

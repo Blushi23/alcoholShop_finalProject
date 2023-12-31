@@ -110,7 +110,6 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                 .catch((err) => console.log(err))
         }
     }
-
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
     let pageTitle = subcategory ? subcategory : category
 
@@ -174,14 +173,12 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                                         style={{ width: " 16.5rem", height: "28rem" }}>
                                         <img src={product.image ? (`${product.image}`) : noImg} alt={product.name}
                                             style={{ height: "13rem" }} className="mt-2 product-img"
-
                                             onClick={() => navigate(`/products/${category}/${subcategory}/${product._id}`)} />
                                         <div className="products-card-body">
                                             <h5 className="card-title mt-3">{product.name}</h5>
                                             <p>Volume: {product.volume} ml</p>
                                             <hr className="mt-0" />
                                             <p className="card-text price">Price: {currencyFormat(product.price)}</p>
-
                                             {userInfo.email && userInfo.isAdmin === false && (
                                                 <div className="products-addToCart-container">
                                                     <button className="btn addToCart-btn" onClick={() => handleAddToCart(product)}>Add to cart</button>
@@ -263,7 +260,6 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
                             </div>
                         </div>
                     )}
-
                 </>) : (<p>No Products To Show</p>))
                 }
             </div >
@@ -271,5 +267,4 @@ const CategoryProducts: FunctionComponent<CategoryProductsProps> = ({ categoryPr
         </div>
     )
 }
-
 export default CategoryProducts;

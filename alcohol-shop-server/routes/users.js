@@ -2,7 +2,6 @@ const express = require("express");
 const joi = require("joi");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const moment = require("moment");
 const auth = require("../middlewares/auth")
 const User = require("../models/User");
 const Cart = require("../models/Cart")
@@ -31,25 +30,6 @@ const loginSchema = joi.object({
     email: joi.string().required().email(),
     password: joi.string().required().min(8)
 })
-
-// const updateSchema = joi.object({
-//     firstName: joi.string().min(2),
-//     lastName: joi.string().min(2),
-//     phone: joi.string().min(9),
-//     email: joi.string().email(),
-//     birthDate: joi.date(),
-//     password: joi.string().min(8),
-//     country: joi.string().min(2),
-//     city: joi.string().min(2),
-//     street: joi.string().min(2),
-//     houseNumber: joi.number().min(0),
-//     floor: joi.number().allow(""),
-//     apartment: joi.number().allow(""),
-//     zip: joi.string().min(0),
-//     isAdmin: joi.boolean()
-// })
-// .min(1);
-
 
 //Register
 router.post("/", async (req, res) => {
@@ -150,24 +130,6 @@ router.put("/:id", auth, async (req, res) => {
         res.status(400).send(error);
     }
 })
-// //Edit user's delivery profile
-// router.put("/delivery/:id", auth, async (req, res) => {
-//     try {
-//         if (req.payload.isAdmin == false && !req.payload._id == req.params.id) return res.status(400).send("Access denied. No authorization to edit this profile");
-
-//         const { error } = userSchema.validate(req.body)
-//         if (error) return res.status(400).send(error);
-
-//         let user = await User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
-
-//         // await user.save();
-
-//         res.status(200).send(user);
-
-//     } catch (error) {
-//         res.status(400).send(error);
-//     }
-// })
 
 // Update user's role 
 router.patch("/:id", auth, async (req, res) => {

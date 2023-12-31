@@ -40,14 +40,6 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    // imageUrl: {
-    //     type: String,
-    //     required: false
-    // },
-    // imageAlt: {
-    //     type: String,
-    //     required: false
-    // }
 })
 
 const Product = mongoose.model("products", productSchema);

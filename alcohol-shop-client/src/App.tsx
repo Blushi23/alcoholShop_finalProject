@@ -29,7 +29,6 @@ let theme = {
 };
 export let siteTheme = createContext(theme.light);
 
-//Quantity next to cart icon
 export let QuantityContext = createContext<{ quantity: any; setQuantity: React.Dispatch<any> }>({
   quantity: {},
   setQuantity: () => { }
@@ -48,17 +47,12 @@ function App() {
   let handleUpdateUser = (updatedUser: User) => {
     setUsers((pervUsers) => pervUsers.map((user) => (user._id === updatedUser._id ? updatedUser : user)))
   }
-  // let handleUpdateDeliveryUser = (updatedUser: User) => {
-  //   setUsers((pervUsers) => pervUsers.map((user) => (user._id === updatedUser._id ? updatedUser : user)))
-  // }
 
   //Products & Carts
-
   type Quantity = { [key: string]: number };
   let initialQuantity = localStorage.getItem('quantity') ? JSON.parse(localStorage.getItem('quantity')!) : {};
   let [quantity, setQuantity] = useState<Quantity>(initialQuantity);
 
-  // let [quantity, setQuantity] = useState<Quantity>({});
   let [cartData, setCartData] = useState<any>();
   let updateCartData = (newProduct: any) => {
     setCartData((prevCartData: any) => [...prevCartData, newProduct])
@@ -103,14 +97,13 @@ function App() {
   return (
     <div className={`App ${darkMode ? theme.light : theme.dark}`}>
       <siteTheme.Provider value={darkMode ? "light" : "dark"}>
-        {/* <ShoppingCartProvider> */}
         <ToastContainer theme={`${darkMode ? "dark" : "light"}`} />
         <Router  >
           <QuantityContext.Provider value={{ quantity, setQuantity }}>
-            <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} updateCartData={updateCartData} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal}/*updateCart={updateCart}/*quantity={quantity}*/ />
+            <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} updateCartData={updateCartData} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />
 
             <Routes>
-              <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} products={allProducts} setProducts={setAllProducts} loading={loading} setLoading={setLoading} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
+              <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} loading={loading} setLoading={setLoading} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
               <Route path='/about' element={<About openContactModal={openContactModal} setOpenContactModal={setOpenContactModal} />} />
               <Route path='/update-account/:id' element={<UpdateAccount user={user} setUser={setUser} setUserInfo={setUserInfo} userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} />
 
@@ -124,20 +117,16 @@ function App() {
               <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
               <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} userInfo={userInfo} cartData={cartData} setCartData={setCartData} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} />} />
 
-              <Route element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal}/*updateCart={updateCart}*/ />} />
+              <Route element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
               <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
               <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} userInfo={userInfo} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
-              {/* <Route path='/delivery' element={<DeliveryDetails userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} cartData={cartData} user={user} setUser={setUser} />} /> */}
               <Route path="/delivery" element={<Delivery user={user} setUser={setUser} userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} />} />
-
-              {/* <Route path='/payment' element={<Payment holderName='' cardNumber='' expiration='' cvc='' focus='' />} /> */}
 
               <Route path='*' element={<PageNotFound />} />
             </Routes>
           </QuantityContext.Provider>
           <Footer userInfo={userInfo} setUserInfo={setUserInfo} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} openContactModal={openContactModal} setOpenContactModal={setOpenContactModal} />
         </Router >
-        {/* </ShoppingCartProvider> */}
       </siteTheme.Provider>
 
     </div >

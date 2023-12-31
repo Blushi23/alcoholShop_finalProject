@@ -1,7 +1,5 @@
 import axios from "axios";
 import Product from "../interfaces/Product";
-import { useState } from "react";
-import Search from "../components/Search";
 
 let api: string = `${process.env.REACT_APP_API}/products`;
 
@@ -36,7 +34,6 @@ export function deleteProduct(id: string) {
     return axios.delete(`${api}/${id}`, { headers: { Authorization: JSON.parse(sessionStorage.getItem("token") as string).token } })
 }
 
-//     }
 export async function searchProduct(key: string, products: Product[]) {
     try {
         let searchProducts = products.filter(product => product.name.toLowerCase().includes(key.toLowerCase()))
@@ -44,7 +41,5 @@ export async function searchProduct(key: string, products: Product[]) {
         return { data: searchProducts.slice(0, 5) }
     } catch (error) {
         console.log(error);
-
     }
-
 }

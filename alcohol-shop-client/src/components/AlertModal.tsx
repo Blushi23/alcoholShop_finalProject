@@ -1,16 +1,14 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useContext } from "react";
 import { siteTheme } from "../App";
 import { Button, Modal } from "react-bootstrap";
 
 interface AlertModalProps {
     showAlert: boolean;
     hideAlert: Function;
-
 }
 
 const AlertModal: FunctionComponent<AlertModalProps> = ({ showAlert, hideAlert }) => {
     let theme = useContext(siteTheme);
-    let darkMode = theme === "dark";
 
     return (
         <>
@@ -27,10 +25,10 @@ const AlertModal: FunctionComponent<AlertModalProps> = ({ showAlert, hideAlert }
                                 <Button className="btn age-btn" onClick={() => hideAlert()}>Close</Button>
                             </div>
                         </div>
-
                     </Modal.Body>
                 </div>
-            </Modal >    </>
+            </Modal >
+        </>
     )
 }
 

@@ -94,7 +94,6 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                                     value={formik.values.birthDate}
                                     disabled />
                                 <label htmlFor="birthDate">Birth Date *</label>
-
                             </div>
                         </div>
                     </div>

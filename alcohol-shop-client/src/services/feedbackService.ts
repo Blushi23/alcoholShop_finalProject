@@ -1,4 +1,4 @@
-import { Bounce, Flip, Slide, Zoom, toast } from "react-toastify";
+import { Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 

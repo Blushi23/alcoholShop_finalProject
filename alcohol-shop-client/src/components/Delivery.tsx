@@ -184,11 +184,9 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
                             </div>
                         </div>
                     </div>
-
                     <div className="row">
                         <div className="form-floating mb-3">
                             <textarea name="deliveryInstructions" className="form-control" id="deliveryInstructions" placeholder="text"
-
                                 value={formik.values.deliveryInstructions}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} />
@@ -213,5 +211,4 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
         </>
     )
 }
-
 export default Delivery;

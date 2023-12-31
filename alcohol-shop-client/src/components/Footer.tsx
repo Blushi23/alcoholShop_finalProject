@@ -26,9 +26,6 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                             <ul className="footer-list">
                                 <li ><Link to="/about" className="footer-li">About Us</Link></li>
                                 <li ><button onClick={() => setOpenContactModal(true)} className=" btn footer-li ms-0">Contact Us</button></li>
-
-                                {/* <li>Returns and Refunds</li> */}
-                                {/* <li>FAQ</li> */}
                             </ul>
                         </div>
                         <div className="col-sm-3">
@@ -36,7 +33,6 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                             {!userInfo.email && (<>
                                 <ul className="footer-list">
                                     <li ><button onClick={() => setOpenLoginModal(true)} className=" btn footer-li">Sign In / Register</button></li>
-
                                 </ul>
                             </>)}
                             {userInfo.email && userInfo.isAdmin === false && (<>
@@ -62,7 +58,6 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                                 <li><Link to="/products/alcohol" className="footer-li">Alcohol Drinks</Link></li>
                                 <li><Link to="/products/beer" className="footer-li">Beers</Link></li>
                                 <li><Link to="/products/wine" className="footer-li">Wines</Link></li>
-
                             </ul>
                         </div>
                         <div className="col-sm-3">
@@ -71,8 +66,6 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                                 <div className="col-md-12 footer-list">
                                     <Link to={"https://www.facebook.com/michal.blush"} target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-square-facebook ms-4"></i></Link>
                                     <Link to={"https://www.instagram.com/michal_duvidzon/"} target="_blank" rel="noopener noreferrer"> <i className="fa-brands fa-instagram mx-3"></i></Link>
-
-                                    <li></li>
                                 </div>
                             </div>
                             <div className="row mt-3">
@@ -85,14 +78,11 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <img src="/images/cocktailLogo.png" alt="Liquor Land Logo" style={{ height: "7rem" }} />
                     <p className="warning"><b>Warning:</b> Excessive consumption of alcohol is life threatening and is detrimental to health!</p>
                     <hr />
                     <h6 className="copyRights">&copy; 2023 Michal Duvidzon</h6>
-
-
                 </footer>
             </div>
 
@@ -107,5 +97,4 @@ const Footer: FunctionComponent<FooterProps> = ({ userInfo, setUserInfo, setOpen
         </>
     )
 }
-
 export default Footer;

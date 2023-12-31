@@ -1,4 +1,3 @@
-// Filter.tsx
 import React, { useContext } from "react";
 import { Offcanvas } from "react-bootstrap";
 import { currencyFormat } from "../services/CurrencyFormat";
@@ -26,33 +25,19 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({
-    show,
-    setShow,
-    setSearchQuery,
-    setSelectedVolumes,
-    selectedVolumes,
-    setSelectedOrigins,
-    selectedOrigins,
-    setSelectedAlcohol,
-    selectedAlcohol,
-    setSelectedPrice,
-    selectedPrice,
-    volumeOptions,
-    originOptions,
-    alcoholOptions,
-    priceOptions,
-    handleClose,
-    setPriceOptions,
-    handleRangeChange
+    show, setShow, setSearchQuery,
+    volumeOptions, setSelectedVolumes, selectedVolumes,
+    setSelectedOrigins, selectedOrigins, originOptions,
+    setSelectedAlcohol, selectedAlcohol, alcoholOptions,
+    setSelectedPrice, selectedPrice, priceOptions, setPriceOptions,
+    handleClose, handleRangeChange
 }) => {
     let theme = useContext(siteTheme)
     const handleFilterApply = () => {
-        // Perform actions when the filter is applied
         setShow(false);
     };
 
     const handleFilterReset = () => {
-        // Reset all filter options
         setSearchQuery("");
         setSelectedVolumes([]);
         setSelectedOrigins([]);
@@ -60,26 +45,16 @@ const Filter: React.FC<FilterProps> = ({
         setSelectedPrice([]);
     };
 
-    // let handleRangeChange = (index: number, newValue: number) => {
-    //     setPriceOptions((prevValues: any) => {
-    //         let newValues = [...prevValues];
-    //         newValues[index] = newValue;
-    //         return newValues;
-    //     })
-    // }
-
     return (
         <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header className={`${theme}`} closeButton data-bs-theme={`${theme}`}>
                 <Offcanvas.Title>Filter </Offcanvas.Title>
-
             </Offcanvas.Header>
             <Offcanvas.Body className={`${theme}`}>
                 <hr />
                 <div className={`filter-modal ${show ? "show" : ""}`}>
                     <div className="filter-content">
                         <div className="filter-header">
-
                         </div>
                         <div className="filter-body">
                             <button className="btn filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#volumeCollapse" aria-expanded="false" aria-controls="volumeCollapse"><h5>Volume <i className="fa-solid fa-caret-down"></i></h5>
@@ -105,12 +80,10 @@ const Filter: React.FC<FilterProps> = ({
                                                 <label htmlFor={`volume-${option}`}>{option} ml</label>
                                             </div>
                                         ))}
-
                                     </div>
                                 </div>
                             </div>
                             <div>
-
                                 <button className="btn filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#originCollapse" aria-expanded="false" aria-controls="originCollapse"><h5>Origin <i className="fa-solid fa-caret-down"></i></h5>
                                 </button>
                                 <div className="collapse" id="originCollapse">
@@ -134,14 +107,11 @@ const Filter: React.FC<FilterProps> = ({
                                                     <label htmlFor={`origin-${option}`}>{option}</label>
                                                 </div>
                                             ))}
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div>
-
                                 <button className="btn filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#alcoholCollapse" aria-expanded="false" aria-controls="alcoholCollapse"><h5>Alcohol <i className="fa-solid fa-caret-down"></i></h5>
                                 </button>
                                 <div className="collapse" id="alcoholCollapse">
@@ -165,44 +135,10 @@ const Filter: React.FC<FilterProps> = ({
                                                     <label htmlFor={`alcohol-${option}`}>{option} %</label>
                                                 </div>
                                             ))}
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {/*  
-                            <div>
-                         
-                                <button className="btn filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#priceCollapse" aria-expanded="false" aria-controls="priceCollapse"><h5>Price <i className="fa-solid fa-caret-down"></i></h5>
-                                </button>
-                                <div className="collapse" id="priceCollapse">
-                                    <div className="card card-body">
-                                        <div className="form-check">
-                                            {priceOptions.map((option) => (
-                                                <div key={option}>
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id={`price-${option}`}
-                                                        checked={selectedPrice.includes(option)}
-                                                        onChange={() =>
-                                                            setSelectedPrice((prev) =>
-                                                                prev.includes(option)
-                                                                    ? prev.filter((v) => v !== option)
-                                                                    : [...prev, option]
-                                                            )
-                                                        }
-                                                    />
-                                                    <label htmlFor={`price-${option}`}>{option} nis</label>
-                                                </div>
-                                            ))}
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             */}
-                            {/* *********price range********** */}
                             <div>
                                 <button className="btn filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#priceCollapse" aria-expanded="false" aria-controls="priceCollapse">
                                     <h5>Price <i className="fa-solid fa-caret-down"></i></h5>
@@ -242,5 +178,4 @@ const Filter: React.FC<FilterProps> = ({
         </Offcanvas >
     );
 };
-
 export default Filter;

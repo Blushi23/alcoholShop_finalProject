@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { alertMsg, errorMsg, successMsg } from "../services/feedbackService";
+import { errorMsg, successMsg } from "../services/feedbackService";
 import { addUser, getTokenDetails } from "../services/usersService";
 import { addDays } from "date-fns";
-// import addDays from "date-fns/addDays";
 
 interface RegisterProps {
     setUserInfo: Function;
@@ -68,7 +67,6 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
                     console.log(err);
                     errorMsg("You already have a registered user.");
                     navigate("/login")
-
                 })
         }
     })
@@ -76,7 +74,6 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
         <>
             <div className="container-register">
                 <form className="mb-3" onSubmit={formik.handleSubmit}>
-                    {/* <h2 className="title display-1">Register</h2> */}
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
@@ -227,7 +224,8 @@ const Register: FunctionComponent<RegisterProps> = ({ setUserInfo, onHide }) => 
                         </div>
                     </div>
                 </form >
-            </div >        </>
+            </div >
+        </>
     )
 }
 

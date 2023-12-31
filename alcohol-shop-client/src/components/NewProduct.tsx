@@ -6,7 +6,6 @@ import { addProduct } from "../services/productsService";
 import { successMsg } from "../services/feedbackService";
 
 interface NewProductProps {
-
 }
 
 const NewProduct: FunctionComponent<NewProductProps> = () => {
@@ -102,7 +101,6 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
                                     name="category"
                                     id="category"
                                     className="form-select"
-                                    // placeholder="alcohol"
                                     value={formik.values.category}
                                     onChange={(e) => {
                                         formik.handleChange(e);
@@ -123,7 +121,6 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
                                 name="subcategory"
                                 id="subcategory"
                                 className="form-select"
-                                // placeholder="whiskey"
                                 value={formik.values.subcategory}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -167,7 +164,6 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
                                     onBlur={formik.handleBlur}
                                     min="0" />
                                 <label htmlFor="volume">Volume (ml)</label>
-
                             </div>
                         </div>
                         <div className="col">
@@ -212,9 +208,7 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
                             className="btn back-btn "
                         >Back</button>
                     </div >
-
                 </form >
-
             </div >
         </>
     )

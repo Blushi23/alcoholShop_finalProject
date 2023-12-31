@@ -39,14 +39,11 @@ router.post("/", auth, async (req, res) => {
     }
 })
 
-
 // Get all products
 router.get("/", async (req, res) => {
     try {
         const products = await Product.find();
         if (!products) return res.status(404).send("No products found");
-
-
 
         res.status(200).send(products)
 
@@ -54,18 +51,6 @@ router.get("/", async (req, res) => {
         res.status(400).send(error);
     }
 })
-// router.get("/", async (req, res) => {
-//     try {
-//         const products = await Product.find();
-//         if (!products) return res.status(404).send("No products found");
-//         res.status(200).send(products)
-
-//     } catch (error) {
-//         res.status(400).send(error);
-//     }
-// })
-
-
 
 // Get all products from the same category
 router.get("/:category", async (req, res) => {
@@ -99,18 +84,6 @@ router.get("/:category/:subcategory/:id", async (req, res) => {
         res.status(400).send(error);
     }
 })
-
-// Get subcategory by category
-// router.get("/subcategories/:category", async (req, res) => {
-//     try {
-//         // const category=req.params;
-//         const products = await Product.find(req.params.category);
-//         const subcategories = [...new Set(products.map(product => product.subcategory))];
-//         res.status(200).send(subcategories);
-//     } catch (error) {
-//         res.status(500).send(error);
-//     }
-// })
 
 // Edit products
 router.put("/:category/:subcategory/:id", auth, async (req, res) => {
@@ -156,50 +129,6 @@ router.get("/search", async (req, res) => {
         res.status(400).send(error);
     }
 });
-
-
-// router.get("/search", async (req, res) => {
-//     try {
-//         const { searcgQuery } = req.query.query
-//         const products = await Product.find({ name: new RegExp(query, "i") });
-//         res.status(200).send(products)
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// })
-// Searching from the data base
-// router.get("/search", async (req, res) => {
-//     try {
-//         const searchQuery = req.query.query
-//         if (!searchQuery || searchQuery.length < 2) {
-//             res.json([])
-//             return
-//         }
-//         const db = mongoClient.db('')
-//         const collection = db.collection < Product > (MONGODB_COLLECTION)
-//         const pipeline = []
-//         pipeline.push({
-//             $project: {
-//                 _id: 0,
-//                 score: { $meta: 'searchScore' },
-//                 userId: 1,
-//                 name: 1,
-//                 category: 1,
-//                 subcategory: 1,
-//                 description: 1,
-//                 volume: 1,
-//                 origin: 1,
-//                 alcoholPercentage: 1,
-//                 price: 1
-//             },
-//         })
-
-
-
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// })
 
 
 module.exports = router;

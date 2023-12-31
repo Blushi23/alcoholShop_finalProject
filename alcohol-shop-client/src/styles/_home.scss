@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    // height: 100vh;
 }
 
 .card {
@@ -65,10 +64,6 @@
     margin-right: auto;
 }
 
-
-
-
-
 .addToCart-btn,
 .categoryTransfer {
     color: var(--text);
@@ -76,7 +71,6 @@
     border-color: var(--button);
     font-family: var(--text-font);
     width: 60%;
-
 }
 
 .addToCart-btn:hover,

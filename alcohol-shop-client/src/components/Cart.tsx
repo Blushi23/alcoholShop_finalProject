@@ -19,7 +19,6 @@ interface CartProps {
     render: Function;
     productsChanged: boolean;
     setProductsChanged: Function;
-
 }
 type Quantity = { [key: string]: number };
 
@@ -37,7 +36,6 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
         getCart()
 
             .then((res) => {
-                console.log("1");
                 setCartData(res.data);
                 setProductsInCart(res.data);
 
@@ -56,7 +54,6 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
             }
         });
         setQuantity(quantites);
-
     }, [productsInCart, setQuantity])
 
     let handleAddToCart = (product: Product) => {
@@ -69,7 +66,6 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
     let handleIncrement = (productId?: string) => {
         if (productId) {
             setQuantity({ ...quantity, [productId]: (quantity[productId] || 0) + 1, })
-
         }
     };
     let handleDecrement = (productId?: string) => {
@@ -77,7 +73,6 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
             let updatedQuantity = quantity[productId] - 1;
             if (updatedQuantity === 0) handleRemoveFromCart(productId)
             setQuantity({ ...quantity, [productId]: updatedQuantity });
-
         }
     };
 
@@ -107,12 +102,11 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
     }
 
     return (
-        <>
+        <div className={`${theme}`}>
             <h1 className="cart-title">Cart</h1>
             <div className="row">
                 <div className="col-md-8">
                     {loading ? (<Loading />) : (productsInCart.length ? (
-
                         <table className="table">
                             <thead>
                                 <tr className="table-titles">
@@ -138,14 +132,12 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
 
                                         </td>
                                         <td>{product.price * (quantity[product._id as string] || 0)} &#8362;</td>
-                                        {/* <td>{product.quantity}</td> */}
                                         <td><button className="btn remove-table-btn" onClick={() => handleRemoveFromCart(product._id)}><i className="fa-solid fa-trash-can"></i> Remove</button></td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     ) : (<p className="table-p">There are no products in the cart</p>))}
-
 
                 </div>
                 <div className="col-md-3 mx-4 orderSummary">
@@ -158,7 +150,7 @@ const Cart: FunctionComponent<CartProps> = ({ loading, setLoading, quantity, set
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

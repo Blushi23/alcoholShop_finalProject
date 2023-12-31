@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -29,7 +29,6 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
                     </Modal.Header>
 
                     <Tabs
-                        // defaultActiveKey="login"
                         activeKey={key}
                         onSelect={(k) => setKey(k as string)}
                         id="controlled-tab-example"
@@ -56,23 +55,12 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
                                 >I want to register</button>
                                 <button type="submit" className="btn w-75 guest-btn my-3" onClick={() => onHide()}>Continue as a guest</button>
                                 <p><b>Please notice:</b> you won't be able to shop as a guest.</p>
-
                             </div>
                         </Tab>
-
-                        {/* <Tab eventKey="guest" title="Continue as a guest">g</Tab> */}
-                        {/* <Tab eventKey="login" title="Login"> 
-                            <Login setUserInfo={setUserInfo} onHide={onHide} />
-                        </Tab>
-
-                        <Tab eventKey="register" title="Register">
-                            <Register setUserInfo={setUserInfo} onHide={onHide} />
-                        </Tab>
-                       */}
                     </Tabs>
                 </div>
-
-            </Modal >        </>
+            </Modal >
+        </>
     )
 }
 

@@ -50,7 +50,6 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
                 centered
                 size="lg"
                 className={`${theme}`}>
-
                 <div className="modalContent">
                     <Modal.Header className="payment-title" closeButton data-bs-theme={`${theme}`}>
                         <h4>Credit Card Payment</h4>
@@ -124,7 +123,6 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
         </>
     )
 }
-
 
 export default Payment;
 

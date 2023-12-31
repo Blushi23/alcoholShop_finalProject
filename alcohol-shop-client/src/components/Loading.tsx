@@ -1,13 +1,9 @@
-import { FunctionComponent, useContext } from "react";
-import { siteTheme } from "../App";
+import { FunctionComponent } from "react";
 
 interface LoadingProps {
-
 }
 
 const Loading: FunctionComponent<LoadingProps> = () => {
-
-
 
     return (
         <>

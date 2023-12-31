@@ -36,9 +36,8 @@ const ProductsManagmentSearch: FunctionComponent<ProductsManagmentSearchProps> =
                         </button>
                     )}
                 </div>
-
-
-            </form>        </>
+            </form>
+        </>
     )
 }
 

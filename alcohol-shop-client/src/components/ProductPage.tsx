@@ -26,7 +26,6 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
             getProductById(category, subcategory, id)
                 .then((res) => {
                     setProduct(res.data)
-
                 })
 
                 .catch((err) => { console.log(err); }
@@ -40,7 +39,6 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
             .then((res) => addedToCartMsg(` ${product.name} added to cart`))
             .catch((err) => console.log(err))
     }
-
 
     return (
         <div className={`product-page ${theme}`}>

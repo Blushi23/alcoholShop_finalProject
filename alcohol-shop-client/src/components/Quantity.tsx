@@ -1,5 +1,4 @@
-import { FunctionComponent, useState } from "react";
-import Cart from "./Cart";
+import { FunctionComponent } from "react";
 
 interface QuantityProps {
     quantity?: number;
@@ -8,7 +7,6 @@ interface QuantityProps {
 }
 
 const Quantity: FunctionComponent<QuantityProps> = ({ quantity, onDecrement, onIncrement }) => {
-
 
     return (
         <>

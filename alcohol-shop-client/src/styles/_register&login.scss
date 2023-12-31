@@ -31,7 +31,6 @@
 .register-btn:focus,
 .register-btn:active {
     outline: none;
-    // box-shadow: none;
     background-color: var(--button-hover) !important;
     border-color: var(--button-hover) !important;
     color: var(--text);
@@ -52,8 +51,12 @@
 .guest-btn:focus,
 .guest-btn:active {
     outline: none;
-    // box-shadow: none;
     background-color: var(--guest-btn-hover) !important;
     border-color: var(--guest-btn-hover) !important;
     color: #fff !important;
+}
+
+.container-register {
+    margin-left: 40px;
+    margin-right: 40px;
 }

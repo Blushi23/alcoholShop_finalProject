@@ -1,7 +1,4 @@
-// import Product from "./Product";
-
 import Product from "./Product";
-
 
 export default interface Cart {
     _id?: string;

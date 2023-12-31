@@ -2,8 +2,8 @@ import { FunctionComponent, useEffect, useState } from "react";
 import Product from "../interfaces/Product";
 import { currencyFormat } from "../services/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
-import { addedToCartMsg, successMsg, warningMsg } from "../services/feedbackService";
-import { addToCart, getCart, updateCart } from "../services/cartService";
+import { successMsg, warningMsg } from "../services/feedbackService";
+import { addToCart } from "../services/cartService";
 import AlertModal from "./AlertModal";
 
 interface SearchProps {
@@ -16,10 +16,9 @@ interface SearchProps {
     setProductsChanged: Function;
     openAlertModal: boolean;
     setOpenAlertModal: Function;
-    // updateCart: Function;
 }
 
-const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQuery, updateCartData, openAlertModal, setOpenAlertModal, render, productsChanged, setProductsChanged /*updateCart*/ }) => {
+const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQuery, updateCartData, openAlertModal, setOpenAlertModal, render, productsChanged, setProductsChanged }) => {
     let navigate = useNavigate()
     let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
@@ -35,7 +34,6 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
                 setSearchRes(searchProducts.slice(0, 6));
 
                 if (searchProducts.length === 0) warningMsg('No matching products found')
-
             } catch (error) {
                 console.log(error);
             }
@@ -75,13 +73,10 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
         }
     }
 
-
     return (
         <>
             <form style={{ display: "flex", alignItems: "center" }}>
-
                 <div className="form-group" style={{ display: "flex", alignItems: "center" }}>
-
                     <input
                         className="form-control"
                         type="text"
@@ -97,7 +92,6 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
 
                     <i className="fa-solid fa-magnifying-glass ms-1" onClick={() => { handleClick(); handleClose(); }}></i>
                 </div>
-
 
                 {searchRes && searchRes.length > 0 && (
                     <div className="search-result">
@@ -125,11 +119,7 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
                                         <button type="button" disabled className="btn search-addToCart-btn">Add To Cart</button>
                                     </div>
                                 )}
-
-
-
                             </div>
-                            // </div>
                         ))}
                     </div>
                 )}

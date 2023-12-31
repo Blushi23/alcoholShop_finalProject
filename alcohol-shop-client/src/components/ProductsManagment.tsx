@@ -16,14 +16,12 @@ interface ProductsManagmentProps {
     setLoading: Function;
     searchQuery: any;
     setSearchQuery: Function;
-
 }
 
 const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products, setProducts, userInfo, loading, setLoading, searchQuery, setSearchQuery }) => {
     let [productsChanged, setProductsChanged] = useState<boolean>(false)
     let [data, setData] = useState([]);
     let [currentPage, setCurrentPage] = useState(0);
-
     let [totalPages, setTotalPages] = useState(0);
     let itemsPerPage = 12;
     let theme = useContext(siteTheme);
@@ -74,7 +72,6 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
 
     let handlePaginationClick = (pageNumber: number) => { setCurrentPage(pageNumber - 1) };
 
-
     let noImg = darkMode ? "/images/noImgWhite.png" : "/images/noImgBlack.png";
 
     return (
@@ -104,21 +101,16 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                                     <h4 className="manager-price">Price: {product.price} &#8362;</h4>
                                 </div>
                                 <div className=" editIcons w-100">
-                                    {/* <div className="col"> */}
                                     < Link to={`/edit-product/${product._id}`} className="" >
                                         <i className="fa-solid fa-pencil"></i>
                                     </Link>
-                                    {/* </div> */}
-                                    {/* <div className="col trash-btn"> */}
                                     <Link to="" className=" btn" onClick={() => handleToDelete(product._id as string)}>
                                         <i className="fa-solid fa-trash" ></i>
                                     </Link>
-                                    {/* </div> */}
                                 </div>
                             </div>
                         ))}
                     </div>) : (<p className="noProducts">There is no such product</p>)}
-
 
                     <div className="paging-container">
                         <Pagination>
@@ -140,12 +132,8 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                             <Pagination.Last onClick={() => handlePaginationClick(searchQuery ? filteredTotalPages : totalPages)} />
                         </Pagination>
                     </div>
-
                 </div>
             ) : (<p>No products found</p>))}
-
-
-
         </div>
     )
 }
