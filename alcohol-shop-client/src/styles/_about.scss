@@ -1,45 +1,39 @@
 .aboutPage {
-    position: relative;
+    box-shadow: var(--box-shadow);
+    border: 10px double #EDB6C0;
+
+    margin: 30px;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .imageContainer {
-    position: relative;
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100vh;
-    box-sizing: border-box;
+    text-align: end;
+    margin-right: 50px;
+    margin-top: 0;
 }
 
 .imageContainer img {
-    width: 100%;
-    max-width: 100%;
+    width: 15rem;
     height: auto;
-    display: block;
+    filter: var(--product-shadow);
 }
 
 .aboutText {
-    position: absolute;
-    // top: 50%;
-    top: 5%;
-    // left: 50%;
-    left: 7%;
-    // transform: translate(-70%, -40%);
-    // text-align: center;
+    margin: 30px 30px 0px;
     color: var(--text);
     text-align: justify;
-    max-width: 85%;
     font-family: var(--text-font);
     font-size: 1.1rem;
 }
 
-.aboutText h4,
-h6 {
+.aboutText h2,
+h5 {
     font-family: var(--small-title);
     color: var(--text);
+    text-shadow: var(--text-shadow);
 }
+
 
 .about-btn {
     color: var(--text);
@@ -60,16 +54,4 @@ h6 {
     background-color: var(--button-hover) !important;
     border-color: var(--button-hover) !important;
     color: var(--text);
-}
-
-
-
-@media screen and (max-width: 768px) {
-    .aboutText {
-        font-size: 14px;
-    }
-
-    .aboutText h4 {
-        font-size: 1rem;
-    }
 }

@@ -112,12 +112,10 @@ router.put("/:id", auth, async (req, res) => {
             // Decrement the quantity by 1
             cart.products[productIndex].quantity -= 1;
             cart.markModified("products")
-            console.log(cart.products[productIndex]);
 
             // Save the updated cart
             await cart.save();
 
-            console.log("After" + cart.products[productIndex].quantity);
 
             res.status(200).send("Product quantity updated successfully");
         } else {
@@ -129,4 +127,3 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 module.exports = router;
-

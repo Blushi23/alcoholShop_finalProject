@@ -1,0 +1,40 @@
+.edit-user-title {
+    font-family: var(--title-font);
+    font-size: 3.5rem;
+    text-shadow: var(--text-shadow);
+    color: var(--text);
+    margin-bottom: 15px;
+}
+
+.form-floating :disabled {
+    color: var(--text);
+}
+
+.form-floating input {
+    color: var(--text);
+}
+
+.form-floating input:disabled {
+    color: var(--white);
+    background: rgb(176, 176, 176);
+}
+
+.change-password {
+    border: 1px solid rgb(219, 67, 67);
+    color: var(--text);
+}
+
+.change-password:hover {
+    background-color: rgb(219, 67, 67);
+    color: var(--black);
+}
+
+.change-password:focus {
+    // background-color: rgb(219, 67, 67);
+    color: var(--text);
+}
+
+.change-password:active {
+    border: 1px solid rgb(219, 67, 67) !important;
+    background-color: var(--button) !important;
+}

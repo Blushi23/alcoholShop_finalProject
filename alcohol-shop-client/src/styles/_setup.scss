@@ -1,13 +1,20 @@
 :root {
     --background-color: rgb(252, 252, 233);
+    --nav-background: #fdb7b664;
+    --bs-navbar-active-color: #020202;
+    --bs-navbar-color: #020202;
+    --dropdown: #f9d3c4;
+    --dropdown-shadow: -15px -5px 1rem rgba(0, 0, 0, 0.582);
+    --dropdown-hover: #77344d7c;
     --modal-background: #f2f2f2;
     --card-background: #fff;
+    --product-page-background: #f6e7e75b;
     --form-control: #fff;
-    /* --background-image: url(/public/images/lightBg.jpg); */
     --text: #020202;
     --paging-background: var(--white);
     --paging-active: #ffc0cb;
     --button: #f9c2c2;
+    --darkMode: rgb(3, 3, 29);
     --disabled-button: #efd4d4;
     --button-hover: #fc92a2;
     --guest-btn: #e2b1df;
@@ -16,16 +23,13 @@
     --error-message-background: #ffffff96;
     --errorMsg: #ca2311;
     --tabs: rgb(161, 15, 139);
-    --cards-shadow: 5px 5px 7px #77344d;
+    --cards-shadow: 5px 5px 7px hsl(338, 39%, 34%);
     --card-border: #77344d;
     --product-shadow: drop-shadow(8px 7px 8px #77344d);
-    // --orange: #ff8d06;
-    // --yellow: #f8aa1d;
-    // --blue: #000072;
-    // --light-purple: #b199c5;
-    // --dark-purple: #3c0b64;
-    // --pink: #ff67a0;
-    // --redish: #e74a63;
+    --product-page-shadow: drop-shadow(-10px 2px 10px #5d0727);
+    --table-product-shadow: drop-shadow(4px 3px 4px #77344d);
+    --text-shadow: 1px 2px 4px #8c7070;
+    --box-shadow: 5px 5px 1rem rgba(0, 0, 0, 0.5);
     --white: #ffffff;
     --black: #000000;
     --title-font: "agbalumo";
@@ -35,15 +39,22 @@
 
 .dark {
     --background-color: #171717;
+    --nav-background: #132047a0;
+    --bs-navbar-active-color: #f2f2f2;
+    --bs-navbar-color: #f2f2f2;
+    --dropdown: #141E36;
+    --dropdown-hover: #4374e7a6;
+    --dropdown-shadow: -15px -5px 1rem rgba(186, 184, 184, 0.582);
     --modal-background: #363636;
     --card-background: #101720;
+    --product-page-background: #24064174;
     --form-control: #646464;
-    /* --background-image: url(/public/images/darkBg.jpg); */
     --error-message-background: transparent;
     --text: #f2f2f2;
     --paging-background: #020202;
     --paging-active: #e74a63;
     --button: rgb(161, 15, 24);
+    --darkMode: rgb(241, 189, 0);
     --button-hover: rgb(224, 28, 41);
     --guest-btn: rgb(161, 15, 139);
     --guest-btn-hover: #4a0446;
@@ -53,14 +64,10 @@
     --cards-shadow: 5px 5px 8px #f1c0d2;
     --card-border: #f1c0d2;
     --product-shadow: drop-shadow(8px 7px 8px #f1c0d2);
-    // --link-hover: #afafaf;
-    // --orange: #ff8d06;
-    // --yellow: #f8aa1d;
-    // --blue: #000072;
-    // --light-purple: #b199c5;
-    // --dark-purple: #3c0b64;
-    // --pink: #ff67a0;
-    // --redish: #e74a63;
+    --product-page-shadow: drop-shadow(-10px 2px 10px #dcd4d7);
+    --table-product-shadow: drop-shadow(4px 3px 4px #f1c0d2);
+    --text-shadow: 1px 2px 4px #d6c0c0;
+    --box-shadow: 5px 5px 1rem rgba(255, 255, 255, 0.5);
     --white: #ffffff;
     --black: #000000;
     --title-font: "agbalumo";
@@ -71,7 +78,4 @@
 
 .App {
     background: var(--background-color);
-
-    /* background-image: var(--background-image); */
-
 }

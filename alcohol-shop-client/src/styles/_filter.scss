@@ -1,0 +1,51 @@
+.offcanvas-title {
+    font-family: var(--title-font);
+    color: var(--text);
+    text-align: center;
+    font-size: 3.5rem;
+    // margin-bottom: 10px;
+}
+
+
+.offcanvas-header {
+    background-color: var(--card-background);
+}
+
+.offcanvas-body {
+    background-color: var(--card-background);
+}
+
+.rangeLabels {
+    display: flex;
+    justify-content: space-between;
+}
+
+offcanvas-backdrop.show {
+    background-color: rgba(200, 177, 177, 0.5);
+    /* Change the color values as needed */
+}
+
+.reset-btn,
+.apply-btn {
+    color: var(--text);
+    background-color: var(--button);
+    border-color: var(--button);
+    font-family: var(--text-font);
+}
+
+.reset-btn:hover,
+.apply-btn:hover {
+    background-color: var(--button-hover);
+    border-color: var(--button-hover);
+    color: var(--text);
+}
+
+.reset-btn:focus,
+.apply-btn:focus,
+.reset-btn:active,
+.apply-btn:active {
+    outline: none;
+    background-color: var(--button-hover) !important;
+    border-color: var(--button-hover) !important;
+    color: var(--text);
+}

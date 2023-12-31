@@ -56,10 +56,10 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
     }
     return (
         <>
-            <div className="container">
+            <div className="container ">
 
-                <form className="mb-3" onSubmit={formik.handleSubmit}>
-                    <h4>Edit product</h4>
+                <form className="mb-3 edit-product" onSubmit={formik.handleSubmit}>
+                    <h4 className="managment-title my-4">Edit product</h4>
                     <div className="row">
                         <div className="col-sm-6"><div className="form-floating mb-3">
                             <input
@@ -106,7 +106,6 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                                     name="category"
                                     id="category"
                                     className="form-select"
-                                    // placeholder="alcohol"
                                     value={formik.values.category}
                                     onChange={(e) => {
                                         formik.handleChange(e);
@@ -127,7 +126,6 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                                 name="subcategory"
                                 id="subcategory"
                                 className="form-select"
-                                // placeholder="whiskey"
                                 value={formik.values.subcategory}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -204,17 +202,17 @@ const EditProduct: FunctionComponent<EditProductProps> = () => {
                             </div>
                         </div>
                     </div>
-
-                    <button
-                        type="submit"
-                        className="btn btn-info w-50 my-3 me-5"
-                        disabled={!formik.isValid || !formik.dirty}>Save changes</button>
-                    <button
-                        type="button"
-                        onClick={() => navigate(-1)}
-                        className="btn btn-primary "
-                    >Back</button>
-
+                    <div className="buttons">
+                        <button
+                            type="submit"
+                            className="btn btn-edit-product w-25 my-3 me-5"
+                            disabled={!formik.isValid || !formik.dirty}>Save changes</button>
+                        <button
+                            type="button"
+                            onClick={() => navigate(-1)}
+                            className="btn back-btn  "
+                        >Back</button>
+                    </div>
                 </form >
 
             </div >        </>

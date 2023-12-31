@@ -4,39 +4,32 @@ import { createContext, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-// import Register from './components/Register';
-// import Login from './components/Login';
 import About from './components/About';
 import Cart from './components/Cart';
 import PageNotFound from './components/PageNotFound';
 import Footer from './components/Footer';
 import User from './interfaces/User';
-// import AgeConfirmation from './components/AgeConfirmation';
 import UpdateAccount from './components/UpdateAccount';
 import CategoryProducts from './components/CategoryProducts';
 import ProductPage from './components/ProductPage';
 import Product from './interfaces/Product';
-import Payment from './components/Payment';
 import UsersManagment from './components/UsersManagment';
 import ProductsManagment from './components/ProductsManagment';
 import NewProduct from './components/NewProduct';
 import EditProduct from './components/EditProduct';
-// import DeliveryDetails from './components/DeliveryDetails';
 import Search from './components/Search';
 import { getProducts } from './services/productsService';
 import SearchResults from './components/SearchResults';
 import ProductsManagmentSearch from './components/ProductsManagmentSearch';
-// import DeliveryDetails from './components/DeliveryDetails';
-import { updateCart } from './services/cartService';
 import Delivery from './components/Delivery';
-
 
 let theme = {
   light: "light",
   dark: "dark",
 };
-
 export let siteTheme = createContext(theme.light);
+
+//Quantity next to cart icon
 export let QuantityContext = createContext<{ quantity: any; setQuantity: React.Dispatch<any> }>({
   quantity: {},
   setQuantity: () => { }
@@ -80,6 +73,8 @@ function App() {
     localStorage.setItem('quantity', JSON.stringify(quantity));
   }, [quantity]);
 
+  let [productsChanged, setProductsChanged] = useState<boolean>(false);
+  let render = () => setProductsChanged(!productsChanged);
 
 
   //Modals
@@ -87,6 +82,7 @@ function App() {
   let [openAgeModal, setOpenAgeModal] = useState<boolean>(false);
   let [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
   let [openContactModal, setOpenContactModal] = useState<boolean>(false);
+  let [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   let [show, setShow] = useState<boolean>(false)
 
   useEffect(() => {
@@ -111,25 +107,26 @@ function App() {
         <ToastContainer theme={`${darkMode ? "dark" : "light"}`} />
         <Router  >
           <QuantityContext.Provider value={{ quantity, setQuantity }}>
-            <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} updateCartData={updateCartData}/*updateCart={updateCart}/*quantity={quantity}*/ />
+            <Navbar userInfo={userInfo} setUserInfo={setUserInfo} darkMode={darkMode} setDarkMode={setDarkMode} user={user} setUser={setUser} openLoginModal={openLoginModal} setOpenLoginModal={setOpenLoginModal} products={allProducts} setSearchQuery={setSearchQuery} searchQuery={searchQuery} updateCartData={updateCartData} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal}/*updateCart={updateCart}/*quantity={quantity}*/ />
 
             <Routes>
-              <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} products={allProducts} setProducts={setAllProducts} loading={loading} setLoading={setLoading} />} />
+              <Route path='/' element={<Home openAgeModal={openAgeModal} setOpenAgeModal={setOpenAgeModal} handleCloseAgeModal={handleCloseAgeModal} userInfo={userInfo} products={allProducts} setProducts={setAllProducts} loading={loading} setLoading={setLoading} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
               <Route path='/about' element={<About openContactModal={openContactModal} setOpenContactModal={setOpenContactModal} />} />
               <Route path='/update-account/:id' element={<UpdateAccount user={user} setUser={setUser} setUserInfo={setUserInfo} userInfo={userInfo} handleUpdateUser={handleUpdateUser} />} />
 
-              <Route path='/users-managment' element={<UsersManagment handleUpdateUser={handleUpdateUser} users={users} setUsers={setUsers} />} />
+              <Route path='/users-managment' element={<UsersManagment users={users} setUsers={setUsers} />} />
               <Route path='/products-managment' element={<ProductsManagment products={allProducts} setProducts={setAllProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} />
               <Route path='/new-product' element={<NewProduct />} />
               <Route path='/edit-product/:id' element={<EditProduct />} />
-              <Route path='/products/:category/:subcategory/:id' element={<ProductPage products={categoryProducts} setProducts={setCategoryProducts} userInfo={userInfo} />} />
-              <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
-              <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
-              <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} />} />
-              <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} userInfo={userInfo} cartData={cartData} setCartData={setCartData} />} />
-              <Route element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} /*updateCart={updateCart}*/ />} />
+              <Route path='/products/:category/:subcategory/:id' element={<ProductPage products={categoryProducts} setProducts={setCategoryProducts} userInfo={userInfo} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
+              <Route path='/products/:category' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
+              <Route path='/products/:category/:subcategory' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
+              <Route path='/products' element={<CategoryProducts categoryProducts={categoryProducts} setCategoryProducts={setCategoryProducts} userInfo={userInfo} loading={loading} setLoading={setLoading} setSearchQuery={setSearchQuery} searchQuery={searchQuery} show={show} setShow={setShow} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
+              <Route path='/cart' element={<Cart loading={loading} setLoading={setLoading} quantity={quantity} setQuantity={setQuantity} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} userInfo={userInfo} cartData={cartData} setCartData={setCartData} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} />} />
+
+              <Route element={<Search products={allProducts} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal}/*updateCart={updateCart}*/ />} />
               <Route element={<ProductsManagmentSearch setSearchQuery={setSearchQuery} products={allProducts} />} />
-              <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} />} />
+              <Route path='/Search/:key' element={<SearchResults products={allProducts} setProducts={setAllProducts} userInfo={userInfo} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />} />
               {/* <Route path='/delivery' element={<DeliveryDetails userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} cartData={cartData} user={user} setUser={setUser} />} /> */}
               <Route path="/delivery" element={<Delivery user={user} setUser={setUser} userInfo={userInfo} openPaymentModal={openPaymentModal} setOpenPaymentModal={setOpenPaymentModal} />} />
 

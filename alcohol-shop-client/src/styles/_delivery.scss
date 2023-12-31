@@ -1,0 +1,21 @@
+.container-register {
+    font-family: var(--text-font);
+}
+
+.delivery-title,
+.payment-title {
+    font-family: var(--title-font);
+    color: var(--text);
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: var(--text-shadow);
+}
+
+.form-control {
+    background-color: var(--form-control);
+    color: var(--text);
+}
+
+.loading {
+    color: var(--text);
+}

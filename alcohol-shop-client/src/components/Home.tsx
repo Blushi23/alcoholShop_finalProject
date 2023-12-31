@@ -7,11 +7,13 @@ import Product from "../interfaces/Product";
 import Loading from "./Loading";
 import { addToCart } from "../services/cartService";
 import { addedToCartMsg } from "../services/feedbackService";
+import AlertModal from "./AlertModal";
 
 interface HomeProps {
     openAgeModal: boolean;
     setOpenAgeModal: Function
-    // show: boolean;
+    openAlertModal: boolean;
+    setOpenAlertModal: Function;
     handleCloseAgeModal: Function;
     userInfo: any;
     products: any;
@@ -21,7 +23,7 @@ interface HomeProps {
 
 }
 
-const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, handleCloseAgeModal, userInfo, products, setProducts, loading, setLoading }) => {
+const Home: FunctionComponent<HomeProps> = ({ openAgeModal, openAlertModal, setOpenAlertModal, handleCloseAgeModal, userInfo, products, setProducts, loading, setLoading }) => {
     let navigate = useNavigate();
     let { category, subcategory } = useParams();
 
@@ -37,8 +39,6 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
     let [beerProducts, setBeerProducts] = useState([]);
     let [wineProducts, setWineProducts] = useState([]);
 
-    // let addToFavorites = favorites ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
-    let addToFavorites = darkMode ? <i className="fa-solid fa-heart"></i> : <i className="fa-solid fa-heart-circle-plus"></i>
     useEffect(() => {
         setLoading(true)
         let showProducts = async () => {
@@ -62,9 +62,9 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
         setLoading(false);
 
     }, [])
-    // }, [setProducts, category, subcategory])
 
     let handleAddToCart = (product: Product) => {
+        if (!userInfo.email) setOpenAlertModal(true)
         addToCart(product)
             .then((res) => addedToCartMsg(` ${product.name} added to cart`))
             .catch((err) => console.log(err))
@@ -101,15 +101,23 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                         <hr className="mt-0" />
                                         <p className="card-text price">Price: {product.price} &#8362;</p>
 
-                                        {userInfo.isAdmin === false && (
+
+
+                                        {!userInfo.email && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => setOpenAlertModal(true)}>Add to cart</button>
+
+                                            </div>)}
+
+                                        {userInfo.email && userInfo.isAdmin === false && (
                                             <div className="addToCart-container">
                                                 <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
-                                                <div className="heart-icon">{addToFavorites}</div>
+
                                             </div>)}
                                         {userInfo.isAdmin && (
                                             <div className="products-addToCart-container">
                                                 <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
-                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+
                                             </div>
                                         )}
                                     </div>
@@ -140,16 +148,21 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                         <hr className="mt-0" />
                                         <p className="card-text price">Price: {product.price} &#8362;</p>
 
-                                        {userInfo.isAdmin === false && (
+                                        {!userInfo.email && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => setOpenAlertModal(true)}>Add to cart</button>
+
+                                            </div>)}
+
+                                        {userInfo.email && userInfo.isAdmin === false && (
                                             <div className="addToCart-container">
                                                 <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
-                                                <div className="heart-icon">{addToFavorites}</div>
-                                            </div>
-                                        )}
+
+                                            </div>)}
                                         {userInfo.isAdmin && (
                                             <div className="products-addToCart-container">
                                                 <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
-                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+
                                             </div>
                                         )}
                                     </div>
@@ -182,19 +195,23 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                                         <hr className="mt-0" />
                                         <p className="card-text price">Price: {product.price} &#8362;</p>
 
-                                        {userInfo.isAdmin === false && (
+                                        {!userInfo.email && (
+                                            <div className="addToCart-container">
+                                                <button className="btn addToCart-btn align-items-center" onClick={() => setOpenAlertModal(true)}>Add to cart</button>
+
+                                            </div>)}
+
+                                        {userInfo.email && userInfo.isAdmin === false && (
                                             <div className="addToCart-container">
                                                 <button className="btn addToCart-btn align-items-center" onClick={() => handleAddToCart(product)}>Add to cart</button>
-                                                <div className="heart-icon">{addToFavorites}</div>
-                                            </div>
-                                        )}
+
+                                            </div>)}
                                         {userInfo.isAdmin && (
                                             <div className="products-addToCart-container">
                                                 <button className="btn addToCart-btn-admin" disabled>Add to cart</button>
-                                                <button className="btn addToFavorites heart-icon" disabled >{addToFavorites}</button>
+
                                             </div>
                                         )}
-
                                     </div>
                                 </div>
                                 // </div>
@@ -205,6 +222,8 @@ const Home: FunctionComponent<HomeProps> = ({ openAgeModal, setOpenAgeModal, han
                     <button className="btn categoryTransfer my-4" onClick={() => navigate('/products/wine')}>Find more products</button>
                 </div>
             </div >
+
+            <AlertModal showAlert={openAlertModal} hideAlert={() => setOpenAlertModal(false)} />
         </>
     )
 }

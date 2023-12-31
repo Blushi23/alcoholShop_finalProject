@@ -6,12 +6,11 @@ import { deleteUser, getUsers, updateUserRole } from "../services/usersService";
 import { successMsg } from "../services/feedbackService";
 
 interface UsersManagmentProps {
-    handleUpdateUser: Function;
     users: User[];
     setUsers: Function;
 }
 
-const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ handleUpdateUser, users, setUsers }) => {
+const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ users, setUsers }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
     let [dataChanged, setDataChanged] = useState<boolean>(false);
@@ -41,7 +40,6 @@ const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ handleUpdateUs
                 setDataChanged(!dataChanged);
             } catch (error) {
                 console.log(error);
-
             }
         }
     }
@@ -49,11 +47,11 @@ const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ handleUpdateUs
     return (
         <>
             <div className="container">
-                <h3>Users Managment</h3>
+                <h3 className="managment-title mt-2 mb-4">Users Managment</h3>
                 {users.length ? (
-                    <table className="table text-center" data-bs-theme={`${theme}`} >
+                    <table className="table text-center ms-0" data-bs-theme={`${theme}`} >
                         <thead>
-                            <tr>
+                            <tr className="table-titles">
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Phone</th>
@@ -71,7 +69,6 @@ const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ handleUpdateUs
                                     <td>{user.phone}</td>
                                     <td>{user.email}</td>
                                     <td>
-
                                         <select
                                             name="role"
                                             id="role"
@@ -79,19 +76,17 @@ const UsersManagment: FunctionComponent<UsersManagmentProps> = ({ handleUpdateUs
                                             onChange={(e) => handleRoleChange(e.target.value, user._id!)}
                                         >
                                             <option value="user">User</option><option value="admin">Admin</option></select>
-
-
                                     </td>
 
                                     <td><i className="fa-solid fa-user-pen text-warning" onClick={() => navigate(`/update-account/${user._id}`)}></i></td>
                                     <td>
-                                        <i className="fa-solid fa-user-xmark text-danger" onClick={() => handleToDelete(user._id as string)}></i>
+                                        <i className="fa-solid fa-user-xmark delete-user"
+                                            onClick={() => handleToDelete(user._id as string)}></i>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-
                 ) : (<p>No users found</p>)}
             </div >        </>
     )

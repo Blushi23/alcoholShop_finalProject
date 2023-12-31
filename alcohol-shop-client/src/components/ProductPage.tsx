@@ -1,23 +1,21 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import Product from "../interfaces/Product";
 import { siteTheme } from "../App";
-import { getProductById, getProducts } from "../services/productsService";
+import { getProductById } from "../services/productsService";
 import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../services/cartService";
 import { addedToCartMsg } from "../services/feedbackService";
-import { userInfo } from "os";
+import AlertModal from "./AlertModal";
 
 interface ProductPageProps {
     products: any;
     setProducts: Function;
     userInfo: any;
-    // loading: any;
-    // setLoading: Function;
-
-
+    openAlertModal: boolean;
+    setOpenAlertModal: Function;
 }
 
-const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProducts, userInfo }) => {
+const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProducts, userInfo, openAlertModal, setOpenAlertModal }) => {
     let navigate = useNavigate();
     let { category, subcategory, id } = useParams();
     let [product, setProduct] = useState<Product>()
@@ -37,6 +35,7 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
     }, [setProducts, category, subcategory, id])
 
     let handleAddToCart = (product: Product) => {
+        if (!userInfo.email) setOpenAlertModal(true)
         addToCart(product)
             .then((res) => addedToCartMsg(` ${product.name} added to cart`))
             .catch((err) => console.log(err))
@@ -44,19 +43,21 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
 
 
     return (
-        <>
+        <div className={`product-page ${theme}`}>
             {product && (
                 <div className="container productContent">
                     <div className="row ">
-                        <div className="col d-flex justify-content-center align-items-center">
-                            <img className="productImg" src={`${product.image}`} alt={`${product.name}`} />
+                        <div className="col-sm-4 d-flex justify-content-center align-items-center">
+                            <img className="showProductImage" src={`${product.image}`} alt={`${product.name}`} />
                         </div>
-                        <div className="col productInfo ">
-                            <h2>{`${product.name}`}</h2>
-                            <h5 className="mt-5">Price: {`${product.price}`} &#8362;</h5>
+                        <div className="col-sm-8 productInfo ">
+                            <h2 className="product-title">{`${product.name}`}</h2>
                             <p>Bottle volume: {`${product.volume}`} ml</p>
-                            {userInfo.isAdmin === false && <button className="btn" onClick={() => handleAddToCart(product!)}>Add To Cart</button>}
-                            {userInfo.isAdmin && <button className="btn" disabled>Add To Cart</button>}
+                            <h5 className="mt-3">Price: {`${product.price}`} &#8362;</h5>
+                            {!userInfo.email && <button className="btn addToCart-btn" onClick={() => setOpenAlertModal(true)}>Add To Cart</button>}
+
+                            {userInfo.email && userInfo.isAdmin === false && <button className="btn addToCart-btn" onClick={() => handleAddToCart(product!)}>Add To Cart</button>}
+                            {userInfo.isAdmin && <button className="btn addToCart-btn-admin" disabled>Add To Cart</button>}
                         </div>
                         <div className="productDescription">
                             <h6 className="productDescTitle">Description:</h6>
@@ -67,10 +68,11 @@ const ProductPage: FunctionComponent<ProductPageProps> = ({ products, setProduct
                     </div>
                 </div>
             )}
-            <div className="d-flex justify-content-end backBtn">
-                <button className="btn btn-outline-info" onClick={() => navigate(-1)}>Back</button>
+            <div className="d-flex justify-content-end ">
+                <button className="btn backBtn w-25" onClick={() => navigate(-1)}>Back</button>
             </div>
-        </>
+            <AlertModal showAlert={openAlertModal} hideAlert={() => setOpenAlertModal(false)} />
+        </div>
     )
 }
 

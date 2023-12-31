@@ -1,11 +1,11 @@
 import { FunctionComponent, useContext, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import User from "../interfaces/User";
 import { QuantityContext, siteTheme } from "../App";
 import LoginModal from "./LoginModal";
 import Search from "./Search";
 import Product from "../interfaces/Product";
-import { searchProduct } from "../services/productsService";
+import AlertModal from "./AlertModal";
 
 interface NavbarProps {
     userInfo: any;
@@ -17,18 +17,19 @@ interface NavbarProps {
     openLoginModal: boolean;
     setOpenLoginModal: Function;
     products: Product[];
-    // inputSearch: string;
-    // setInputSearch: Function;
     setSearchQuery: Function;
     searchQuery: any;
     updateCartData: Function;
-    // updateCart: Function;
-    // quantity: Quantity;
+    render: Function
+    productsChanged: boolean;
+    setProductsChanged: Function;
+    openAlertModal: boolean;
+    setOpenAlertModal: Function;
+
 }
-// type Quantity = { [key: string]: number };
 
 
-const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, updateCartData /*updateCart /*quantity*/ }) => {
+const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMode, setDarkMode, user, setUser, openLoginModal, setOpenLoginModal, products, setSearchQuery, searchQuery, render, updateCartData, productsChanged, setProductsChanged, openAlertModal, setOpenAlertModal }) => {
     let navigate = useNavigate();
     let theme = useContext(siteTheme);
     let quantityContext = useContext(QuantityContext);
@@ -41,10 +42,10 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
     let logout = () => {
         sessionStorage.removeItem("userInfo");
         sessionStorage.removeItem("token");
+        localStorage.removeItem("quantity");
         setUserInfo({ email: false, isAdmin: false });
         navigate("/");
     }
-
 
     return (
         <>
@@ -54,7 +55,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
 
                     <div className="search-bar-locator">
-                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo}/*updateCart={updateCart}*/ />) : (
+                        {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} updateCartData={updateCartData} userInfo={userInfo} render={render} productsChanged={productsChanged} setProductsChanged={setProductsChanged} openAlertModal={openAlertModal} setOpenAlertModal={setOpenAlertModal} />) : (
                             <button type="button" className="btn search-btn" onClick={() => {
                                 if (setSearchBarOpen && searchQuery.trim() !== "") {
                                     navigate(`/search/${searchQuery}`);
@@ -70,7 +71,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
 
                     <button className="navbar-toggler" type="button"
                         data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                        <span className="open-menu"><i className="fa-solid fa-bars"></i></span>
                     </button>
 
                     <div className="navbar-right-side"></div>
@@ -81,7 +82,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             </li>
 
                             <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <Link className={`nav-link dropdown-toggle `} to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Shop
                                 </Link>
                                 <div className="dropdown-menu">
@@ -112,15 +113,10 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                                         <li><Link className="dropdown-item" to="/products/wine/rose">Rose Wine</Link></li>
                                         <li><Link className="dropdown-item" to="/products/wine/sparkling">Sparkling Wine</Link></li>
                                         <li><Link className="dropdown-item" to="/products/wine/dessert & fortified">Dessert & Fortified Wine</Link></li>
-
                                     </ul>
                                 </div>
                             </li>
-                            {userInfo.email && userInfo.isAdmin === false && (
-                                <>
-                                    <li className="nav-item"><Link to="#" className="nav-link">Favorites</Link></li>
-                                </>
-                            )}
+
                             {userInfo.email && userInfo.isAdmin === true && (
                                 <>
                                     <li className="nav-item"><Link to="/users-managment" className="nav-link manager-page">Users Managment</Link></li>
@@ -128,25 +124,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                                 </>
                             )}
                         </ul>
-
-                        {/* <div className="search-bar-locator">
-                            {searchBarOpen ? (<Search products={products} setSearchQuery={setSearchQuery} />) : (
-                                <button type="button" className="btn search-btn" onClick={() => {
-                                    if (setSearchBarOpen && searchQuery.trim() !== "") {
-                                        navigate(`/search/${searchQuery}`);
-                                        setSearchBarOpen(false);
-                                    } else { setSearchBarOpen(true); }
-                                }}>
-                                    <i className="fa-solid fa-magnifying-glass"></i>
-                                </button>
-
-                            )}
-
-                        </div> */}
-
                         {!userInfo.email && (
                             <>
-
                                 <button className="btn" type="button"
                                     onClick={() => setOpenLoginModal(true)}
                                 ><i className="fa-solid fa-user me-0"></i></button>
@@ -157,35 +136,24 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                             setDarkMode(!darkMode);
                             localStorage.setItem("darkMode", JSON.stringify(!darkMode))
                         }}>
-                            <label className="form-check-label  darkModeButton fs-5" htmlFor="flexSwitchCheckDefault">{darkMode ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun text-warning"></i>}</label>
+                            <label className="form-check-label  darkModeButton fs-5" htmlFor="flexSwitchCheckDefault">{darkMode ? <i className="fa-solid fa-moon"></i> : <i className="fa-solid fa-sun"></i>}</label>
                         </button>
 
-                        {userInfo.isAdmin === false && (
+                        {userInfo.email && userInfo.isAdmin === false && (
                             <button className="btn shopping-cart-btn" onClick={() => navigate("/cart")}>
                                 <i className="fa-solid fa-cart-shopping"></i>
-                                <div className="position-relative">
-                                    {/* {totalQuantity > 0 && ( */}
-                                    <div className="items-counter rounded-circle w-100 d-flex justify-content-center align-items-center position-absolute">
-                                        {totalQuantity}
-                                    </div>
-                                    {/* )} */}
-                                </div>
 
                             </button>
                         )}
                         {userInfo.email && (
                             <>
                                 <button className="btn" type="button"
-                                    // onClick={() => navigate(`/update-account`)}
                                     onClick={() => navigate(`/update-account/${userInfo.userId}`)}
                                 ><i className="fa-solid fa-user me-0"></i></button>
-
-                                <button className="btn" onClick={logout}>Logout</button>
+                                <button className="btn logout" onClick={logout}>Logout</button>
                             </>
                         )}
-
                     </div>
-
                 </div >
             </nav >
 
@@ -193,8 +161,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ userInfo, setUserInfo, darkMod
                 show={openLoginModal}
                 onHide={() => setOpenLoginModal(false)}
                 setUserInfo={setUserInfo}
-            // userId={openUserModal}
             />
+            <AlertModal showAlert={openAlertModal} hideAlert={() => setOpenAlertModal(false)} />
         </>
     )
 }

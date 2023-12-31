@@ -2,26 +2,20 @@ import { FunctionComponent, useEffect } from "react";
 import * as yup from "yup";
 import User from "../interfaces/User";
 import { useFormik } from "formik";
-import Cart from "../interfaces/Cart";
-// import { createOrder } from "../services/ordersService";
 import { successMsg } from "../services/feedbackService";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUserById } from "../services/usersService";
 import Payment from "./Payment";
-import { currencyFormat } from "../services/CurrencyFormat";
 import { createDeliveryAddress } from "../services/ordersService";
-import { values } from "lodash";
 interface DeliveryProps {
     openPaymentModal: boolean;
     setOpenPaymentModal: Function;
     userInfo: any;
     user: User;
     setUser: Function;
-    // totalPrice: any
-    // cart: Cart;
 }
 
-const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, openPaymentModal, setOpenPaymentModal, /*totalPrice*/ }) => {
+const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, openPaymentModal, setOpenPaymentModal }) => {
     let { id } = useParams();
     let userId = id ? id : userInfo.userId;
     let navigate = useNavigate();
@@ -69,7 +63,6 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
                     successMsg("Delivery details recived"); setOpenPaymentModal(true);
                     formik.resetForm()
                 })
-
                 .catch((err) => console.log(err)
                 )
         }
@@ -79,7 +72,7 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
         <>
             <div className="container-register">
                 <form className="mb-3" onSubmit={formik.handleSubmit}>
-                    <h2 className="title display-3">Delivery details</h2>
+                    <h2 className="delivery-title display-3">Delivery details</h2>
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
@@ -97,7 +90,7 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
                                     value={formik.values.lastName}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur} />
-                                <label htmlFor="lastName">Last Name *</label>
+                                <label className="form-label" htmlFor="lastName">Last Name *</label>
                                 {formik.touched.lastName && formik.errors.lastName && (<small className="error-message">{formik.errors.lastName}</small>)}
                             </div>
                         </div>
@@ -186,7 +179,7 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
                                     value={formik.values.zip}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur} />
-                                <label htmlFor="zip">Zip</label>
+                                <label htmlFor="zip">Zip *</label>
                                 {formik.touched.zip && formik.errors.zip && (<small className="error-message">{formik.errors.zip}</small>)}
                             </div>
                         </div>
@@ -206,10 +199,6 @@ const Delivery: FunctionComponent<DeliveryProps> = ({ user, setUser, userInfo, o
                         <button
                             type="submit"
                             className="btn submit-btn w-75"
-                        // onClick={() => {
-                        // setOpenPaymentModal(true)
-                        // }
-                        // }
                         >submit and proceed to payment</button>
                     </div>
                     <div className="d-flex justify-content-center">

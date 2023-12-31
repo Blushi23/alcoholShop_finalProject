@@ -2,11 +2,8 @@ import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { siteTheme } from "../App";
 import { deleteProduct, getProducts } from "../services/productsService";
 import { successMsg } from "../services/feedbackService";
-import { userInfo } from "os";
-import User from "../interfaces/User";
 import { Link } from "react-router-dom";
 import Product from "../interfaces/Product";
-import ReactPaginate from "react-paginate";
 import Loading from "./Loading";
 import { Pagination } from "react-bootstrap";
 import ProductsManagmentSearch from "./ProductsManagmentSearch";
@@ -50,7 +47,6 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
                 setTotalPages(calculatedPages);
                 setCurrentPage(prevPage => Math.min(prevPage, Math.max(calculatedPages - 1, 0)))
                 setLoading(false);
-
             })
             .catch((err) => {
                 console.log(err); setLoading(false);
@@ -86,42 +82,43 @@ const ProductsManagment: FunctionComponent<ProductsManagmentProps> = ({ products
             <div className="managment-search">
                 <ProductsManagmentSearch products={products} setSearchQuery={setSearchQuery} />
             </div>
-            <h2 className="text-center">Products Managment</h2>
+            <h2 className="text-center managment-title">Products Managment</h2>
             {(userInfo.isAdmin === true) && (
-                <Link to="/new-product" className="btn btn-info"><i className="fa-solid fa-plus" /> Add new product</Link>
+                <Link to="/new-product" className="btn btn-new-product"><i className="fa-solid fa-plus" /> Add new product</Link>
             )}
             {loading ? (<Loading />) : (products.length ? (
                 <div className="container">
-                    <div className="row">
+                    {filteredProducts.length ? (<div className="row">
                         {subset.map((product: Product) => (
                             <div
                                 key={product._id}
-                                className="card col-md-3 align-items-center m-2"
-                                style={{ width: "16rem", height: "26rem" }}>
+                                className=" managment-cards col-md-3 align-items-center m-2"
+                                style={{ width: "16rem", height: "28rem" }}>
                                 <img src={product.image ? (`${product.image}`) : noImg} alt={product.name}
-                                    style={{ height: "12rem" }} className="mt-2" />
+                                    style={{ height: "12rem" }} className="mt-2 product-image" />
                                 <div className="card-title text-center mt-2">
                                     <h5>{product.name}</h5>
                                     <h6>Category: {product.category}</h6>
                                     <p>Subcategory: {product.subcategory}</p>
-                                    <hr />
-                                    <h4>Price: {product.price} &#8362;</h4>
+                                    <hr className="mt-1" />
+                                    <h4 className="manager-price">Price: {product.price} &#8362;</h4>
                                 </div>
-                                <div className="row editIcons">
-                                    <div className="col text-start">
-                                        < Link to={`/edit-product/${product._id}`} className="" >
-                                            <i className="fa-solid fa-pencil mt-2"></i>
-                                        </Link>
-                                    </div>
-                                    <div className="col text-end">
-                                        <Link to="" className=" btn" onClick={() => handleToDelete(product._id as string)}>
-                                            <i className="fa-solid fa-trash" ></i>
-                                        </Link>
-                                    </div>
+                                <div className=" editIcons w-100">
+                                    {/* <div className="col"> */}
+                                    < Link to={`/edit-product/${product._id}`} className="" >
+                                        <i className="fa-solid fa-pencil"></i>
+                                    </Link>
+                                    {/* </div> */}
+                                    {/* <div className="col trash-btn"> */}
+                                    <Link to="" className=" btn" onClick={() => handleToDelete(product._id as string)}>
+                                        <i className="fa-solid fa-trash" ></i>
+                                    </Link>
+                                    {/* </div> */}
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div>) : (<p className="noProducts">There is no such product</p>)}
+
 
                     <div className="paging-container">
                         <Pagination>

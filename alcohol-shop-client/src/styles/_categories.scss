@@ -1,3 +1,12 @@
+.products-page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 60px;
+    margin-left: 50px;
+}
+
 .pageTitle {
     font-family: var(--title-font);
     color: var(--text);
@@ -15,9 +24,14 @@
 }
 
 .filter,
-.sort,
 .view {
     color: var(--text);
+}
+
+.view-change {
+    position: absolute;
+    left: 15px;
+
 }
 
 .filter:hover,
@@ -53,6 +67,23 @@
     align-items: center;
 }
 
+.table-btn {
+    color: var(--text);
+    border: none;
+}
+
+.table-btn:hover,
+.table-btn:active,
+.table-btn:focus {
+    text-shadow: var(--text-shadow);
+    border: none;
+}
+
+.table-container {
+    min-width: fit-content;
+    margin-top: 15px;
+    margin-right: 10px;
+}
 
 .addToCart-btn-admin:disabled {
     background: var(--disabled-button);

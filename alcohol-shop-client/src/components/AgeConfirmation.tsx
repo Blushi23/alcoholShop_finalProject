@@ -1,8 +1,6 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { siteTheme } from "../App";
-import { useNavigate } from "react-router-dom";
-import { errorMsg } from "../services/feedbackService";
 
 interface AgeConfirmationProps {
     show: boolean;
@@ -24,8 +22,6 @@ const AgeConfirmation: FunctionComponent<AgeConfirmationProps> = ({ show, onHide
         setOpenAgeModal(false)
     }
 
-
-
     return (
         <>
             <Modal show={openAgeModal} onHide={() => handleCloseAgeModal()}
@@ -35,30 +31,31 @@ const AgeConfirmation: FunctionComponent<AgeConfirmationProps> = ({ show, onHide
                 className={`${theme}`}>
 
                 <div className="popUpModal">
-
                     <Modal.Body className="text-center age-modal-content">
                         <div className="row">
-                            <div className="col-sm-9 ms-5 mt-2"><h5>WAIT!</h5>
+                            <div className="col-sm-9 ms-5 mt-2"><h1>WAIT!</h1>
                                 <p>{modalContent}</p>
                                 {showButtons && (
                                     <><Button className="age-btn" onClick={() => handleCloseAgeModal()}>Yes</Button><br />
-                                        <Button className="mt-2 age-btn" onClick={() => { setModalContent(`I'm sorry, You can't enter this site. See you after your 18th Birthday.`); setShowButtons(false) }}>Not yet</Button>
-
+                                        <Button className="mt-2 age-btn" onClick={() => { setModalContent("I'm sorry, You can't enter this site.See you after your 18th Birthday."); setShowButtons(false) }}>Not yet</Button>
                                     </>
                                 )}</div>
                         </div>
-                        <div className="col-sm-3 shelf mb-0">
-                            <img src={image} alt="" /></div>
-
+                        <div className="shelf-container">
+                            <div className="col-sm-3 shelf mt-2 mb-0">
+                                <img src={image} alt="alcohol bottles" /></div>
+                            <div className="col-sm-3 shelf mt-2 mb-0">
+                                <img src={image} alt="alcohol bottles" /></div>
+                            <div className="col-sm-3 shelf mt-2 mb-0">
+                                <img src={image} alt="alcohol bottles" /></div>
+                        </div>
 
                         <hr />
                         <p className="warning"><b>Warning:</b> Excessive consumption of alcohol is life threatening and is detrimental to health! </p>
 
                     </Modal.Body>
-
                 </div>
             </Modal >
-
         </>
     )
 }

@@ -16,15 +16,10 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
     let [key, setKey] = useState<string>()
     let theme = useContext(siteTheme);
 
-    // useEffect(() => {
-    // if (show) setKey('login');
-    // }, [show]);
-
     return (
         <>
             <Modal show={show} onHide={() => onHide()}
                 aria-labelledby="contained-modal-title-vcenter"
-                // aria-labelledby="example-custom-modal-styling-title"
                 centered
                 dialogClassName="modal-90w"
                 className={`${theme}`}>
@@ -60,6 +55,7 @@ const LoginModal: FunctionComponent<LoginModalProps> = ({ show, onHide, setUserI
                                     onClick={() => setKey('register')}
                                 >I want to register</button>
                                 <button type="submit" className="btn w-75 guest-btn my-3" onClick={() => onHide()}>Continue as a guest</button>
+                                <p><b>Please notice:</b> you won't be able to shop as a guest.</p>
 
                             </div>
                         </Tab>

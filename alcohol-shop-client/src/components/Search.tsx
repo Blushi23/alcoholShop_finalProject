@@ -3,18 +3,23 @@ import Product from "../interfaces/Product";
 import { currencyFormat } from "../services/CurrencyFormat";
 import { useNavigate } from "react-router-dom";
 import { addedToCartMsg, successMsg, warningMsg } from "../services/feedbackService";
-import { addToCart, updateCart } from "../services/cartService";
-import { userInfo } from "os";
+import { addToCart, getCart, updateCart } from "../services/cartService";
+import AlertModal from "./AlertModal";
 
 interface SearchProps {
     userInfo: any;
     products: Product[];
     setSearchQuery: Function;
     updateCartData: Function;
+    render: any;
+    productsChanged: boolean;
+    setProductsChanged: Function;
+    openAlertModal: boolean;
+    setOpenAlertModal: Function;
     // updateCart: Function;
 }
 
-const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQuery, updateCartData /*updateCart*/ }) => {
+const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQuery, updateCartData, openAlertModal, setOpenAlertModal, render, productsChanged, setProductsChanged /*updateCart*/ }) => {
     let navigate = useNavigate()
     let [searchRes, setSearchRes] = useState<Product[]>([]);
     let [key, setKey] = useState<string>("");
@@ -42,10 +47,9 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
         event.stopPropagation();
         addToCart(product)
             .then((res) => {
+
                 successMsg(` ${product.name} added to cart`);
-                // addedToCartMsg(` ${product.name} added to cart`);
                 updateCartData(product)
-                // updateCart();
                 handleClose()
 
             })
@@ -106,7 +110,12 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
                                     <h5 className="product-name">{product.name}</h5>
                                     <p>Price: {currencyFormat(product.price)}</p>
                                 </div>
-                                {userInfo.isAdmin === false && (
+                                {!userInfo.email && (
+                                    <div className="btn-container">
+                                        <button type="button" className="btn search-addToCart-btn" onClick={() => setOpenAlertModal(true)}>Add To Cart</button>
+                                    </div>
+                                )}
+                                {userInfo.email && userInfo.isAdmin === false && (
                                     <div className="btn-container">
                                         <button type="button" className="btn search-addToCart-btn" onClick={(e) => handleAddToCart(e, product)}>Add To Cart</button>
                                     </div>
@@ -125,6 +134,7 @@ const Search: FunctionComponent<SearchProps> = ({ userInfo, products, setSearchQ
                     </div>
                 )}
             </form >
+            <AlertModal showAlert={openAlertModal} hideAlert={() => setOpenAlertModal(false)} />
         </>
     )
 }

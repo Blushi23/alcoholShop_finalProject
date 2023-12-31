@@ -2,10 +2,9 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
-import { errorMsg, successMsg } from "../services/feedbackService";
-import { addUser, getTokenDetails, getUserById, updateUser } from "../services/usersService";
+import { successMsg } from "../services/feedbackService";
+import { getUserById, updateUser } from "../services/usersService";
 import { addDays } from "date-fns";
-// import addDays from "date-fns/addDays";
 import User from "../interfaces/User";
 
 interface UpdateAccountProps {
@@ -15,7 +14,6 @@ interface UpdateAccountProps {
     user: User;
     setUser: Function;
 }
-
 const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUserInfo, handleUpdateUser, user, setUser }) => {
     let { id } = useParams();
     let userId = id ? id : userInfo.userId;
@@ -50,7 +48,6 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
             apartment: yup.number().min(0).nullable(),
             zip: yup.string().min(5),
         }),
-
         onSubmit: (values) => {
             updateUser(values, userId)
                 .then((res) => {
@@ -69,7 +66,7 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
         <>
             <div className="container-register">
                 <form className="mb-3" onSubmit={formik.handleSubmit}>
-                    <h2 className="title display-3">Update Account</h2>
+                    <h2 className="edit-user-title display-3">Update Account</h2>
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
@@ -92,14 +89,12 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                             </div>
                         </div>
                         <div className="col">
-                            <div className="form-floating mb-3">
+                            <div className="form-floating disabled-field mb-3">
                                 <input name="birthDate" type="date" className="form-control" id="birthDate" placeholder="01/01/2000"
                                     value={formik.values.birthDate}
-                                    // onChange={formik.handleChange}
-                                    // onBlur={formik.handleBlur}
                                     disabled />
                                 <label htmlFor="birthDate">Birth Date *</label>
-                                {/* {formik.touched.birthDate && formik.errors.birthDate && (<small className="error-message">{formik.errors.birthDate}</small>)} */}
+
                             </div>
                         </div>
                     </div>
@@ -125,10 +120,9 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                             </div>
                         </div>
                     </div>
-
                     <div className="row">
                         <div className="col">
-                            <div className="form-floating mb-3 d-flex align-items-center">
+                            <div className="form-floating disabled-field mb-3 d-flex align-items-center">
                                 <input name="password" type="password" className="form-control" id="registerPassword" placeholder="Password"
                                     value={formik.values.password}
                                     onChange={formik.handleChange}
@@ -136,7 +130,7 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                                     disabled={isDisabled} />
                                 <label htmlFor="registerPassword" className="flex-grow-1">Password *</label>
                                 {formik.touched.password && formik.errors.password && (<small className="error-message">{formik.errors.password}</small>)}
-                                <button className="btn btn-outline-dark ms-2" type="button" onClick={() => setIsDisabled(false)}>Change Password</button>
+                                <button className="btn change-password ms-2" type="button" onClick={() => setIsDisabled(false)}>Change Password</button>
                             </div>
                         </div>
                         <div className="col">
@@ -172,7 +166,6 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                             </div>
                         </div>
                     </div>
-
                     <div className="row">
                         <div className="col">
                             <div className="form-floating mb-3">
@@ -211,11 +204,11 @@ const UpdateAccount: FunctionComponent<UpdateAccountProps> = ({ userInfo, setUse
                     <div className="d-flex justify-content-center">
                         <button
                             type="submit"
-                            className="btn submit-btn w-75 btn-primary"
+                            className="btn submit-btn w-50 btn-primary"
                             disabled={!formik.isValid || !formik.dirty}>Update</button>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button type="button" className="btn backBtn w-50 btn-outline-info my-3" onClick={() => navigate(-1)}>Back</button>
+                        <button type="button" className="btn backBtn w-25 my-3" onClick={() => navigate(-1)}>Back</button>
                     </div>
                 </form >
             </div >          </>

@@ -43,9 +43,6 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
         setFocus(e.target.name as Focused);
     };
 
-
-
-
     return (
         <>
             <Modal show={show} onHide={() => onHide()}
@@ -55,8 +52,8 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
                 className={`${theme}`}>
 
                 <div className="modalContent">
-                    <Modal.Header closeButton>
-                        <h6>Credit Card Payment</h6>
+                    <Modal.Header className="payment-title" closeButton data-bs-theme={`${theme}`}>
+                        <h4>Credit Card Payment</h4>
                     </Modal.Header>
                     <Modal.Body>
                         <form className="mb-3" onSubmit={formik.handleSubmit}>
@@ -124,9 +121,6 @@ const Payment: FunctionComponent<PaymentProps> = ({ show, onHide }) => {
                     </Modal.Body>
                 </div>
             </Modal>
-
-
-
         </>
     )
 }

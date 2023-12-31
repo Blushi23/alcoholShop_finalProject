@@ -14,7 +14,6 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
     useEffect(() => {
         formik.setFieldValue("price", "")
         formik.setFieldValue("volume", "")
-        // formik.setFieldValue("alcoholPercentage", "")
     }, [])
     let formik = useFormik({
         initialValues: { name: "", category: "", subcategory: "", price: 0, description: "", volume: 0, alcoholPercentage: "", origin: "", image: "" },
@@ -55,9 +54,8 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
     return (
         <>
             <div className="container">
-
                 <form className="mb-3" onSubmit={formik.handleSubmit}>
-                    <h4>Add new product</h4>
+                    <h4 className="managment-title my-3">Add new product</h4>
                     <div className="row">
                         <div className="col-sm-8"><div className="form-floating mb-3">
                             <input
@@ -202,15 +200,18 @@ const NewProduct: FunctionComponent<NewProductProps> = () => {
                             </div>
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        className="btn btn-info w-50 my-3 me-5"
-                        disabled={!formik.isValid || !formik.dirty}>Add</button>
-                    <button
-                        type="button"
-                        onClick={() => navigate(-1)}
-                        className="btn btn-primary "
-                    >Back</button>
+                    <div className="buttons">
+
+                        <button
+                            type="submit"
+                            className="btn btn-edit-product w-25 my-3 me-5"
+                            disabled={!formik.isValid || !formik.dirty}>Add</button>
+                        <button
+                            type="button"
+                            onClick={() => navigate(-1)}
+                            className="btn back-btn "
+                        >Back</button>
+                    </div >
 
                 </form >
 

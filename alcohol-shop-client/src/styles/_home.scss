@@ -57,8 +57,6 @@
 
 .addToCart-container {
     display: flex;
-    // justify-content: space-between;
-    // justify-content: space-around;
     align-items: center;
     margin-top: auto;
 }
@@ -68,17 +66,8 @@
 }
 
 
-.heart-icon {
-    color: crimson;
-    cursor: pointer;
-    margin-left: auto;
-    transition: transform 0.4s ease-in-out;
-    font-size: 1.2rem;
-}
 
-.heart-icon:hover {
-    transform: scale(1.5);
-}
+
 
 .addToCart-btn,
 .categoryTransfer {
@@ -86,8 +75,6 @@
     background-color: var(--button);
     border-color: var(--button);
     font-family: var(--text-font);
-    // margin-top: auto;
-    // align-self: flex-start;
     width: 60%;
 
 }
@@ -104,7 +91,6 @@
 .categoryTransfer:focus,
 .categoryTransfer:active {
     outline: none;
-    // box-shadow: none;
     background-color: var(--button-hover) !important;
     border-color: var(--button-hover) !important;
     color: var(--text);
